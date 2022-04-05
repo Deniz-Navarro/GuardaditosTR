@@ -4,9 +4,12 @@ import InputContainer from "../components/TextInput";
 import Button from "../components/Button";
 import auth from '@react-native-firebase/auth';
 
-const authUser = (email, password, navigation) =>{
-    auth().signInWithEmailAndPassword(email, password)
+const onSubmit = (mail, user, pass, pass2, navigation) => {
+  if (pass == pass2) {
+    auth()
+    .createUserWithEmailAndPassword(mail, pass)
     .then(() => {
+      console.log('Usuario creado con exito');
       navigation.reset({
         index: 0,
         routes: [
@@ -14,19 +17,20 @@ const authUser = (email, password, navigation) =>{
         ]
       });
     })
-    .catch(error => {
-        if (error.code === 'auth/operation-not-allowed') {
-          console.log('Usuario o contraseña incorrectos');
-        }
-        console.error(error);
-      });
-}
+    .catch(error => console.log(error));
+    }
+};
 
-export const Login = ({navigation}) =>{
+const Container = ({children}) => <View style={styles.container}>{children}</View>;
+
+export const Register = ({navigation}) =>{
     const [email,setEmail] = useState('');
+    const [username,setUsername] = useState('');
     const [pass,setPass] = useState('');
+    const [confirm,setConfirm] = useState('');
+
     return(
-        <View style={styles.container}>
+        <Container>
           <Text style={styles.title}>Guardaditos TR</Text>
           <View style={{alignItems: 'center'}}>
             <Image
@@ -36,24 +40,38 @@ export const Login = ({navigation}) =>{
                 }}
             />
           </View>
+          <Text style={styles.subtitle}>— REGISTRO —</Text>
           <InputContainer placeholder="Correo electronico"
           value={email}
-          onChangeText={a => { setEmail(a); }}
+          onChangeText={a => {
+            setEmail(a);
+          }}
           />
-          <InputContainer placeholder="Contraseña" secure
+          <InputContainer placeholder="Nombre de usuario"
+          value={username}
+          onChangeText={a => {
+            setUsername(a);
+          }}
+          />
+          <InputContainer placeholder="Contraseña" 
+          secure
           value={pass}
-          onChangeText={a => { setPass(a); }}
+          onChangeText={a => {
+            setPass(a);
+          }}
           />
-          <Text style={styles.forgot}>¿Olvidaste tu contraseña?</Text>
-          <Button 
-          text = "Iniciar sesion"
-          onPress = {() => authUser(email,pass,navigation)} 
+          <InputContainer placeholder="Confirmar contraseña" 
+          secure
+          value={confirm}
+          onChangeText={a => {
+            setConfirm(a);
+          }}
           />
           <Button 
           text = "Registrarse"
-          onPress = { () => { navigation.navigate('Register') }}
+          onPress = {() => onSubmit(email,username,pass,confirm,navigation)}
           />
-        </View>
+        </Container>
       );
 }
 
@@ -67,8 +85,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         fontWeight: 'bold',
-        marginTop: 40,
-        marginBottom: 40,
+        marginTop: 20,
+        marginBottom: 30,
+      },
+      subtitle:{
+        fontSize: 16,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginBottom: 20,
       },
       forgot: {
         textAlign: 'right',
@@ -81,4 +105,3 @@ const styles = StyleSheet.create({
         marginBottom: 20,
       },
 });
-

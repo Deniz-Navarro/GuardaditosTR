@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Btn = props => {
+const Button = props => {
   const {onPress, text} = props;
   return (
     <TouchableOpacity
@@ -17,17 +17,19 @@ const Btn = props => {
   );
 };
 
-export default Btn;
+export default Button;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: 'blue',
+    backgroundColor: '#6094A4',
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 15,
   },
   buttonText: {
     color: '#f9f9f9',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
