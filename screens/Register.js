@@ -5,23 +5,28 @@ import Button from "../components/Button";
 import auth from '@react-native-firebase/auth';
 
 const onSubmit = (mail, user, pass, pass2, navigation) => {
-  if (pass == pass2) {
-    auth()
-    .createUserWithEmailAndPassword(mail, pass)
-    .then(() => {
-      console.log('Usuario creado con exito');
-      navigation.reset({
-        index: 0,
-        routes: [
-          {name: 'Home'}
-        ]
-      });
-    })
-    .catch(error => console.log(error));
-    }
+  if(mail.endsWith('@ucol.mx')){
+    if (pass == pass2) {
+      auth()
+      .createUserWithEmailAndPassword(mail, pass)
+      .then(() => {
+        console.log('Usuario creado con exito');
+        navigation.reset({
+          index: 0,
+          routes: [
+            {name: 'Home'}
+          ]
+        });
+      })
+      .catch(error => console.log(error));
+      }else{
+        alert("Las contraseñas no coinciden");
+      }
+  }else{
+    alert("Este correo no pertenece a la udc")
+  }
+  
 };
-
-const Container = ({children}) => <View style={styles.container}>{children}</View>;
 
 export const Register = ({navigation}) =>{
     const [email,setEmail] = useState('');
@@ -30,7 +35,7 @@ export const Register = ({navigation}) =>{
     const [confirm,setConfirm] = useState('');
 
     return(
-        <Container>
+        <View style={styles.container}>
           <Text style={styles.title}>Guardaditos TR</Text>
           <View style={{alignItems: 'center'}}>
             <Image
@@ -71,7 +76,7 @@ export const Register = ({navigation}) =>{
           text = "Registrarse"
           onPress = {() => onSubmit(email,username,pass,confirm,navigation)}
           />
-        </Container>
+        </View>
       );
 }
 

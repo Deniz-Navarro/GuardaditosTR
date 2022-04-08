@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet, Image} from 'react-native';
 import InputContainer from "../components/TextInput";
 import Button from "../components/Button";
+import Link from "../components/Link";
 import auth from '@react-native-firebase/auth';
 
 const authUser = (email, password, navigation) =>{
@@ -49,9 +50,9 @@ export const Login = ({navigation}) =>{
           text = "Iniciar sesion"
           onPress = {() => authUser(email,pass,navigation)} 
           />
-          <Button 
-          text = "Registrarse"
-          onPress = { () => { navigation.navigate('Register') }}
+          <Link 
+          text = "¿Eres nuevo aquí? Crear una cuenta"
+          onPress = { () => { navigation.navigate('Register')}}
           />
         </View>
       );
