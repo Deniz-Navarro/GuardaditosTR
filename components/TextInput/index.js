@@ -19,9 +19,11 @@ export default InputContainer;
 const styles = StyleSheet.create({
     input: {
       height: 55,
-      margin: 12,
-      borderWidth: 1,
+      marginTop: 15,
+      backgroundColor: "white",
+      borderRadius: 10,
+      borderColor: 'grey',
       padding: 10,
-      backgroundColor: '#FFFFFF',
+      fontSize: 20,
     },
   });
