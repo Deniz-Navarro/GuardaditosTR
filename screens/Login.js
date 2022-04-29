@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import InputContainer from "../components/TextInput";
 import Button from "../components/Button";
 import auth from '@react-native-firebase/auth';
+import LogoImg from "./logo/LogoUDC2.png"
 
 const authUser = (email, password, navigation) =>{
     auth().signInWithEmailAndPassword(email, password)
@@ -31,9 +32,7 @@ export const Login = ({navigation}) =>{
           <View style={{alignItems: 'center'}}>
             <Image
                 style={styles.tinyLogo}
-                source={{
-                uri: 'https://cdn-icons-png.flaticon.com/128/3566/3566826.png',
-                }}
+                source={LogoImg}
             />
           </View>
           <InputContainer placeholder="Correo electronico"
@@ -67,17 +66,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         fontWeight: 'bold',
-        marginTop: 40,
-        marginBottom: 40,
+        marginTop: 15,
+        marginBottom: 15,
       },
       forgot: {
         textAlign: 'right',
         marginBottom: 40,
         fontWeight: 'bold',
+        marginTop: 5,
       },
       tinyLogo: {
-        width: 60,
-        height: 60,
+        width: 100,
+        height: 100,
         marginBottom: 20,
       },
 });
