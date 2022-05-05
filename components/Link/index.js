@@ -4,15 +4,8 @@ import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 const Link = props => {
   const {onPress, text} = props;
   return (
-    <TouchableOpacity
-      style = {styles.buttonContainer}
-      onPress = {onPress}
-    >
-      <Text 
-      style={styles.buttonText}
-      >
-        { text }
-      </Text>
+    <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+      <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
