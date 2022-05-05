@@ -1,11 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import MainStack from './navigation/MainStack';
+import MainStack from './src/navigation/MainStack';
 
 const App = () => {
-  return (
-    <MainStack />
-  );
+  return <MainStack />;
 };
 
 export default App;
