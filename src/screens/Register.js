@@ -1,29 +1,28 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import InputContainer from '../components/TextInput';
-import Button from '../components/Button';
+import InputContainer from '../components/atoms/TextInput';
+import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
+import LogoImg from '../assets/images/LogoUDC2.png';
 
 const onSubmit = (mail, user, pass, pass2, navigation) => {
-  if (mail.endsWith('@ucol.mx')) {
-    if (pass == pass2) {
-      auth()
-        .createUserWithEmailAndPassword(mail, pass)
-        .then(() => {
-          console.log('Usuario creado con exito');
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
-        })
-        .catch(error => console.log(error));
-    } else {
-      alert('Las contraseñas no coinciden');
-    }
-  } else {
-    alert('Este correo no pertenece a la udc');
+  if (pass == pass2) {
+    auth()
+      .createUserWithEmailAndPassword(mail, pass)
+      .then(() => {
+        console.log('Usuario creado con exito');
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Home'}],
+        });
+      })
+      .catch(error => console.log(error));
   }
 };
+
+const Container = ({children}) => (
+  <View style={styles.container}>{children}</View>
+);
 
 export const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -32,15 +31,10 @@ export const Register = ({navigation}) => {
   const [confirm, setConfirm] = useState('');
 
   return (
-    <View style={styles.container}>
+    <Container>
       <Text style={styles.title}>Guardaditos TR</Text>
       <View style={{alignItems: 'center'}}>
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: 'https://cdn-icons-png.flaticon.com/128/3566/3566826.png',
-          }}
-        />
+        <Image style={styles.tinyLogo} source={LogoImg} />
       </View>
       <Text style={styles.subtitle}>— REGISTRO —</Text>
       <InputContainer
@@ -77,7 +71,7 @@ export const Register = ({navigation}) => {
         text="Registrarse"
         onPress={() => onSubmit(email, username, pass, confirm, navigation)}
       />
-    </View>
+    </Container>
   );
 };
 
@@ -85,14 +79,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: '#9FC3D8',
+    backgroundColor: '#C5D8A4',
   },
   title: {
     textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 20,
-    marginBottom: 30,
   },
   subtitle: {
     fontSize: 16,
@@ -106,8 +99,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   tinyLogo: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 100,
     marginBottom: 20,
   },
 });

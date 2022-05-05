@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import InputContainer from '../components/TextInput';
-import Button from '../components/Button';
-import Link from '../components/Link';
+import InputContainer from '../components/atoms/TextInput';
+import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
+import LogoImg from '../assets/images/LogoUDC2.png';
 
 const authUser = (email, password, navigation) => {
   auth()
@@ -29,12 +29,7 @@ export const Login = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.title}>Guardaditos TR</Text>
       <View style={{alignItems: 'center'}}>
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: 'https://cdn-icons-png.flaticon.com/128/3566/3566826.png',
-          }}
-        />
+        <Image style={styles.tinyLogo} source={LogoImg} />
       </View>
       <InputContainer
         placeholder="Correo electronico"
@@ -56,8 +51,8 @@ export const Login = ({navigation}) => {
         text="Iniciar sesion"
         onPress={() => authUser(email, pass, navigation)}
       />
-      <Link
-        text="¿Eres nuevo aquí? Crear una cuenta"
+      <Button
+        text="Registrarse"
         onPress={() => {
           navigation.navigate('Register');
         }}
@@ -70,23 +65,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: '#9FC3D8',
+    backgroundColor: '#C5D8A4',
   },
   title: {
     textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 40,
-    marginBottom: 40,
+    marginTop: 15,
+    marginBottom: 15,
   },
   forgot: {
     textAlign: 'right',
     marginBottom: 40,
     fontWeight: 'bold',
+    marginTop: 5,
   },
   tinyLogo: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 100,
     marginBottom: 20,
   },
 });
