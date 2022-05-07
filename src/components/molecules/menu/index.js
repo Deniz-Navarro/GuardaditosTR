@@ -1,12 +1,10 @@
 import React from 'react';
-import StyleSheet from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Home, Room, User} from '../../../screens';
 
 const Tab = createBottomTabNavigator();
-//Icons
-const homeIcon = <Icon name="rocket" size={30} color="#900" />;
 
 const Menu = props => {
   return (
@@ -14,21 +12,60 @@ const Menu = props => {
       screenOptions={{
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: '#000000',
-          borderRadius: 10,
+          backgroundColor: '#646464',
+          height: 60,
         },
         tabBarLabelStyle: {
+          fontSize: 12,
           color: '#ffffff',
-          fontSize: 10,
         },
+        headerShown: false,
       }}>
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{tabBarIcon: <Icon name="rocket" size={30} color="#900" />}}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Icon
+                name="house-user"
+                size={30}
+                color={focused ? '#2F2F2F' : '#ffffff'}
+              />
+            </View>
+          ),
+        }}
       />
-      <Tab.Screen name="Salas" component={Room} />
-      <Tab.Screen name="Usuario" component={User} />
+      <Tab.Screen
+        name="Salas"
+        component={Room}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Icon
+                name="box-open"
+                size={25}
+                color={focused ? '#2F2F2F' : '#ffffff'}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Usuario"
+        component={User}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Icon
+                name="user-tie"
+                size={30}
+                color={focused ? '#2F2F2F' : '#ffffff'}
+              />
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
