@@ -51,12 +51,13 @@ export const Login = ({navigation}) => {
         text="Iniciar sesion"
         onPress={() => authUser(email, pass, navigation)}
       />
-      <Button
-        text="Registrarse"
+      <Text
+        style={styles.registro}
         onPress={() => {
           navigation.navigate('Register');
-        }}
-      />
+        }}>
+        No tienes una cuenta? Registrarse
+      </Text>
     </View>
   );
 };
@@ -79,10 +80,19 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     fontWeight: 'bold',
     marginTop: 5,
+    textDecorationLine: 'underline',
   },
   tinyLogo: {
     width: 100,
     height: 100,
     marginBottom: 20,
+  },
+  registro: {
+    textAlign: 'center',
+    marginTop: 8,
+    color: '#4682B4',
+    fontWeight: 'bold',
+    fontSize: 15,
+    textDecorationLine: 'underline',
   },
 });
