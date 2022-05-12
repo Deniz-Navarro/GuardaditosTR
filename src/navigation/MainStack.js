@@ -12,12 +12,7 @@ const MainStack = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: {
-            backgroundColor: '#8BAB76',
-          },
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}
         initialRouteName={auth().currentUser ? 'Menu' : 'Welcome'}>
         <Stack.Screen

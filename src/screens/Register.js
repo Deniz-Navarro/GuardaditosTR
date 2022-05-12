@@ -1,37 +1,59 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
 import LogoImg from '../assets/images/LogoUDC2.png';
+import firestore from '@react-native-firebase/firestore';
 
-const onSubmit = (mail, user, pass, pass2, navigation) => {
-  if (pass == pass2) {
+const onSubmit = (
+  mail,
+  user,
+  accountNumber,
+  fullName,
+  pass,
+  pass2,
+  navigation,
+) => {
+  if (pass === pass2) {
     auth()
       .createUserWithEmailAndPassword(mail, pass)
       .then(() => {
         console.log('Usuario creado con exito');
+        addUserInfo(mail, user, accountNumber, fullName);
         navigation.reset({
           index: 0,
-          routes: [{name: 'Home'}],
+          routes: [{name: 'Menu'}],
         });
       })
       .catch(error => console.log(error));
   }
 };
 
-const Container = ({children}) => (
-  <View style={styles.container}>{children}</View>
-);
+const addUserInfo = (email, user, accountNumber, fullName) => {
+  firestore()
+    .collection('Users')
+    .add({
+      numeroCuenta: accountNumber,
+      nombre: fullName,
+      correo: email,
+      nick: user,
+    })
+    .then(() => {
+      console.log('Usuario agregado!');
+    });
+};
 
 export const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [pass, setPass] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
+  const [fullName, setFullName] = useState('');
 
   return (
-    <Container>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Guardaditos TR</Text>
       <View style={{alignItems: 'center'}}>
         <Image style={styles.tinyLogo} source={LogoImg} />
@@ -45,10 +67,24 @@ export const Register = ({navigation}) => {
         }}
       />
       <InputContainer
+        placeholder="Nombre completo"
+        value={fullName}
+        onChangeText={a => {
+          setFullName(a);
+        }}
+      />
+      <InputContainer
         placeholder="Nombre de usuario"
         value={username}
         onChangeText={a => {
           setUsername(a);
+        }}
+      />
+      <InputContainer
+        placeholder="Número de cuenta"
+        value={accountNumber}
+        onChangeText={a => {
+          setAccountNumber(a);
         }}
       />
       <InputContainer
@@ -69,9 +105,19 @@ export const Register = ({navigation}) => {
       />
       <Button
         text="Registrarse"
-        onPress={() => onSubmit(email, username, pass, confirm, navigation)}
+        onPress={() =>
+          onSubmit(
+            email,
+            username,
+            accountNumber,
+            fullName,
+            pass,
+            confirm,
+            navigation,
+          )
+        }
       />
-    </Container>
+    </ScrollView>
   );
 };
 
