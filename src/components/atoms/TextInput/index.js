@@ -9,6 +9,7 @@ const InputContainer = props => {
         placeholder={props.placeholder}
         secureTextEntry={props.secure}
         onChangeText={props.onChangeText}
+        value={props.value}
       />
     </View>
   );

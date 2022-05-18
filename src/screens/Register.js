@@ -16,21 +16,26 @@ const onSubmit = (
   navigation,
 ) => {
   if (pass === pass2) {
-    auth()
-      .createUserWithEmailAndPassword(mail, pass)
-      .then(() => {
-        console.log('Usuario creado con exito');
-        addUserInfo(mail, user, accountNumber, fullName);
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'Menu'}],
-        });
-      })
-      .catch(error => console.log(error));
+    if (mail.endsWith('@ucol.mx')) {
+      auth()
+        .createUserWithEmailAndPassword(mail, pass)
+        .then(() => {
+          console.log('Usuario creado con exito');
+          const current = auth().currentUser;
+          addUserInfo(mail, user, accountNumber, fullName, current.uid);
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Menu'}],
+          });
+        })
+        .catch(error => console.log(error));
+    } else {
+      alert('Este correo no pertenece a la UDC');
+    }
   }
 };
 
-const addUserInfo = (email, user, accountNumber, fullName) => {
+const addUserInfo = (email, user, accountNumber, fullName, uid) => {
   firestore()
     .collection('Users')
     .add({
@@ -38,6 +43,7 @@ const addUserInfo = (email, user, accountNumber, fullName) => {
       nombre: fullName,
       correo: email,
       nick: user,
+      uid: uid,
     })
     .then(() => {
       console.log('Usuario agregado!');

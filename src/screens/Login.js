@@ -11,7 +11,7 @@ const authUser = (email, password, navigation) => {
     .then(() => {
       navigation.reset({
         index: 0,
-        routes: [{name: 'Home'}],
+        routes: [{name: 'Menu'}],
       });
     })
     .catch(error => {
@@ -23,8 +23,8 @@ const authUser = (email, password, navigation) => {
 };
 
 export const Login = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [email, setEmail] = useState('ldeniz1@ucol.mx');
+  const [pass, setPass] = useState('123456');
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Guardaditos TR</Text>

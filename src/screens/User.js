@@ -10,15 +10,28 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import LogoImg from '../assets/images/LogoUDC2.png';
+import Button from '../components/atoms/Button';
+import TextTitle from '../components/atoms/TextTitle';
+import Upload from '../components/atoms/Upload';
 
 export const User = ({navigation}) => {
   const [userInfo, setUserInfo] = useState();
+  const current = auth().currentUser;
+
+  //Method to signOut
+  const handleLogout = async () => {
+    await auth().signOut();
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Welcome'}],
+    });
+  };
 
   const getUserInfo = () => {
     firestore()
       .collection('Users')
       // Filter results
-      .where('correo', '==', 'ldeniz1@ucol.mx')
+      .where('uid', '==', current.uid)
       .get()
       .then(querySnapshot => {
         setUserInfo(querySnapshot.docs);
@@ -27,14 +40,14 @@ export const User = ({navigation}) => {
   getUserInfo();
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Informacion de usuario</Text>
+      <TextTitle title="Información de usuario" />
+      <Upload />
       <FlatList
         data={userInfo}
+        style={{height: 200, flexGrow: 0}}
         renderItem={({item}) => (
           <View>
-            <View style={styles.viewImage}>
-              <Image style={styles.imageUser} source={LogoImg} />
-            </View>
+            <Text style={styles.userInformation}>ID: {item.data().uid}</Text>
             <Text style={styles.userInformation}>
               Nombre: {item.data().nombre}
             </Text>
@@ -50,6 +63,8 @@ export const User = ({navigation}) => {
           </View>
         )}
       />
+      <TextTitle title="Materiales" />
+      <Button text="Cerrar sesion" onPress={handleLogout} />
     </SafeAreaView>
   );
 };
@@ -69,12 +84,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Arial',
     marginTop: 10,
-  },
-  title: {
-    fontSize: 25,
-    fontFamily: 'Arial',
-    marginBottom: 20,
-    fontWeight: 'bold',
   },
   viewImage: {
     justifyContent: 'center',
