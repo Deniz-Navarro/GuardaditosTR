@@ -1,21 +1,13 @@
 import React from 'react';
-import {SafeAreaView, Text, StyleSheet} from 'react-native';
-import Button from '../components/atoms/Button';
-import auth from '@react-native-firebase/auth';
+import {View, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import styles from './styles';
 
 export const Home = ({navigation}) => {
-  const handleLogout = async () => {
-    await auth().signOut();
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Welcome'}],
-    });
-  };
-
   return (
-    <SafeAreaView>
+    <View style={styles.container}>
       <Text>Home Screen</Text>
-      <Button text="Cerrar sesion" onPress={handleLogout} />
-    </SafeAreaView>
+      <Icon name="rocket" size={30} color="#900" />
+    </View>
   );
 };

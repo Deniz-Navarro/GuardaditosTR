@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
 import LogoImg from '../assets/images/LogoUDC2.png';
+import styles from './styles';
 
 const authUser = (email, password, navigation) => {
   auth()
@@ -11,7 +12,7 @@ const authUser = (email, password, navigation) => {
     .then(() => {
       navigation.reset({
         index: 0,
-        routes: [{name: 'Home'}],
+        routes: [{name: 'Menu'}],
       });
     })
     .catch(error => {
@@ -23,8 +24,8 @@ const authUser = (email, password, navigation) => {
 };
 
 export const Login = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [email, setEmail] = useState('ldeniz1@ucol.mx');
+  const [pass, setPass] = useState('123456');
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Guardaditos TR</Text>
@@ -51,38 +52,13 @@ export const Login = ({navigation}) => {
         text="Iniciar sesion"
         onPress={() => authUser(email, pass, navigation)}
       />
-      <Button
-        text="Registrarse"
+      <Text
+        style={styles.registro}
         onPress={() => {
           navigation.navigate('Register');
-        }}
-      />
+        }}>
+        No tienes una cuenta? Registrarse
+      </Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: '#C5D8A4',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginTop: 15,
-    marginBottom: 15,
-  },
-  forgot: {
-    textAlign: 'right',
-    marginBottom: 40,
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  tinyLogo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-  },
-});
