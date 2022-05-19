@@ -1,15 +1,30 @@
-import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, Pressable} from 'react-native';
+import React from 'react';
+import {View, TextInput, StyleSheet} from 'react-native';
 
 const InputContainer = props => {
+  const {
+    styles,
+    placeholder,
+    secure,
+    onChangeText,
+    value,
+    keyboardType,
+    maxLength,
+    multiLine,
+    numberOfLines,
+  } = props;
   return (
     <View>
       <TextInput
-        style={styles.input}
-        placeholder={props.placeholder}
-        secureTextEntry={props.secure}
-        onChangeText={props.onChangeText}
-        value={props.value}
+        style={styles ? styles : defaultS.input}
+        placeholder={placeholder}
+        secureTextEntry={secure}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        value={value}
+        maxLength={maxLength}
+        multiLine={multiLine}
+        numberOfLines={numberOfLines}
       />
     </View>
   );
@@ -17,7 +32,7 @@ const InputContainer = props => {
 
 export default InputContainer;
 
-const styles = StyleSheet.create({
+const defaultS = StyleSheet.create({
   input: {
     height: 55,
     marginTop: 15,

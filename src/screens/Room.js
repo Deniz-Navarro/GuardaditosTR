@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text, StyleSheet, View} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import CustomModal from '../components/atoms/CustomModal';
 import styles from './styles';
@@ -15,7 +15,14 @@ export const Room = ({navigation}) => {
         <Text style={styles.title2}>Aulas</Text>
         <CustomButtom name="navicon" size={40} onPress={toggleModal} />
       </View>
-      <CustomModal isModalVisible={isModalVisible} onPress={toggleModal} />
+      <CustomModal
+        isModalVisible={isModalVisible}
+        onPress={toggleModal}
+        onPress2={() => {
+          toggleModal();
+          navigation.navigate('RoomForm');
+        }}
+      />
     </SafeAreaView>
   );
 };

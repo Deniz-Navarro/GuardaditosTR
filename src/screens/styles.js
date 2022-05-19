@@ -72,6 +72,50 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexGrow: 0,
   },
+  //RoomForm styles
+  header2: {
+    flexDirection: 'row',
+    padding: 5,
+    margin: 5,
+  },
+  inputCodigo: {
+    width: 200,
+    height: 55,
+    marginTop: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: 'grey',
+    padding: 10,
+    fontSize: 20,
+  },
+  textaerea: {
+    height: 200,
+    textAlignVertical: 'top',
+    marginTop: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: 'grey',
+    padding: 10,
+    fontSize: 20,
+  },
+  buttonGenerar: {
+    width: 150,
+    height: 55,
+    backgroundColor: '#D06C3F',
+    marginTop: 15,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  buttonGuardar: {
+    backgroundColor: '#D06C3F',
+    marginTop: 20,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
 });
 
 export default styles;

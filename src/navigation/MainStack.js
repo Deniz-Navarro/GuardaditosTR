@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {Home, Login, Register, Welcome} from '../screens';
+import {RoomForm, Login, Register, Welcome} from '../screens';
 import auth from '@react-native-firebase/auth';
 import Menu from '../components/molecules/menu';
 
@@ -22,6 +22,7 @@ const MainStack = () => {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="RoomForm" component={RoomForm} />
         <Stack.Screen name="Menu" component={Menu} />
       </Stack.Navigator>
     </NavigationContainer>

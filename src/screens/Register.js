@@ -89,6 +89,7 @@ export const Register = ({navigation}) => {
       />
       <InputContainer
         placeholder="Número de cuenta"
+        keyboardType="numeric"
         value={accountNumber}
         onChangeText={a => {
           setAccountNumber(a);

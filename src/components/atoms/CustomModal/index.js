@@ -5,7 +5,7 @@ import Button from '../Button';
 import modalStyles from './modalStyles';
 
 const CustomModal = props => {
-  const {isModalVisible, onPress} = props;
+  const {isModalVisible, onPress, onPress2} = props;
   return (
     <Modal animationType="slide" visible={isModalVisible} transparent>
       <View style={modalStyles.modalStyle}>
@@ -17,7 +17,7 @@ const CustomModal = props => {
           text="Ingresar a una sala"
           onPress={() => console.log('ingresar')}
         />
-        <Button text="Crear nueva sala" onPress={() => console.log('crear')} />
+        <Button text="Crear nueva sala" onPress={onPress2} />
       </View>
     </Modal>
   );

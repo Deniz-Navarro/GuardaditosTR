@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Entypo';
 import * as ImagePicker from 'react-native-image-picker';
 import imageUploaderStyles from './imageUploaderStyles';
 
@@ -49,8 +49,7 @@ const Upload = () => {
         <TouchableOpacity
           onPress={addImage}
           style={imageUploaderStyles.uploadBtn}>
-          <Text>{image ? 'Edita' : 'Carga'} Avatar</Text>
-          <Icon name="camera" size={20} color="black" />
+          <Icon name="upload" size={20} color="black" />
         </TouchableOpacity>
       </View>
     </View>

@@ -8,7 +8,7 @@ import styles from './styles';
 import UserInfo from '../components/atoms/UserInfo';
 
 export const User = ({navigation}) => {
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState('');
 
   //Method to signOut
   const handleLogout = async () => {
@@ -28,11 +28,6 @@ export const User = ({navigation}) => {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
-          console.log(
-            'User ID: ',
-            documentSnapshot.id,
-            documentSnapshot.data(),
-          );
           setUserInfo(documentSnapshot.data());
         });
       });
