@@ -37,7 +37,7 @@ const Menu = props => {
         }}
       />
       <Tab.Screen
-        name="Salas"
+        name="Aulas"
         component={Room}
         options={{
           tabBarIcon: ({focused}) => (

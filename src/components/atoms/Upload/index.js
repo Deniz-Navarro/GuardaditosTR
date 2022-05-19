@@ -24,8 +24,6 @@ const Upload = () => {
     };
 
     ImagePicker.launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -33,8 +31,8 @@ const Upload = () => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        console.log(response);
-        setImage(response);
+        let respuesta = response.assets[0];
+        setImage(respuesta);
       }
     });
   };
@@ -43,7 +41,7 @@ const Upload = () => {
       {image && (
         <Image
           source={{
-            uri: 'file:///data/user/0/com.guardaditostr/cache/rn_image_picker_lib_temp_869ac4a4-7c57-4fe3-99c2-503c8799c034.jpg',
+            uri: image.uri,
           }}
           style={{width: 200, height: 200}}
         />
