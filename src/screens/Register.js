@@ -5,6 +5,7 @@ import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
 import LogoImg from '../assets/images/LogoUDC2.png';
 import firestore from '@react-native-firebase/firestore';
+import styles from './styles';
 
 const onSubmit = (
   mail,
@@ -126,33 +127,3 @@ export const Register = ({navigation}) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: '#C5D8A4',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  forgot: {
-    textAlign: 'right',
-    marginBottom: 40,
-    fontWeight: 'bold',
-  },
-  tinyLogo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-  },
-});
