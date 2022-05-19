@@ -5,9 +5,24 @@ import styles from './styles';
 import Upload from '../components/atoms/Upload';
 import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
+import firestore from '@react-native-firebase/firestore';
+
+const crearAula = (nombre, aleatorio, detalle) => {
+  firestore()
+    .collection('Aulas')
+    .add({
+      nombre: nombre,
+      codigo: aleatorio,
+      detalle: detalle,
+    })
+    .then(() => {
+      console.log('Aula creada!');
+    });
+};
 
 export const RoomForm = ({navigation}) => {
-  const [email, setEmail] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [detalle, setDetalle] = useState('');
   const [aleatorio, setAleatorio] = useState('');
   const generateCode = () => {
     let cadena = '';
@@ -30,7 +45,10 @@ export const RoomForm = ({navigation}) => {
         <Text style={styles.title2}>Crear nueva aula</Text>
       </View>
       <Upload />
-      <InputContainer placeholder="Nombre de la sala (Obligatorio)" />
+      <InputContainer
+        placeholder="Nombre de la sala (Obligatorio)"
+        onChangeText={a => setNombre(a)}
+      />
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Text style={styles.inputCodigo}>
           {aleatorio ? aleatorio : 'Codigo'}
@@ -42,15 +60,17 @@ export const RoomForm = ({navigation}) => {
         />
       </View>
       <InputContainer
-        placeholder="Descripción breve..."
+        placeholder="Agrega detalles sobre el aula..."
         multiLine={true}
         numberOfLines={10}
         styles={styles.textaerea}
+        onChangeText={a => setDetalle(a)}
       />
       <Button
         text="Guardar"
         styles={styles.buttonGuardar}
         onPress={() => {
+          crearAula(nombre, aleatorio, detalle);
           navigation.goBack();
         }}
       />
