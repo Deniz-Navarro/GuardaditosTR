@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import styles from './styles';
@@ -7,31 +7,25 @@ import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import firestore from '@react-native-firebase/firestore';
 
-const crearAula = (nombre, aleatorio, detalle) => {
+const crearProductos = (nombre, cantidad, correo, detalle) => {
   firestore()
-    .collection('Aulas')
+    .collection('Elementos')
     .add({
       nombre: nombre,
-      codigo: aleatorio,
+      cantidad: cantidad,
+      correo: correo,
       detalle: detalle,
     })
     .then(() => {
-      console.log('Aula creada!');
+      console.log('Producto creado!');
     });
 };
 
-export const RoomForm = ({navigation}) => {
+export const ProductForm = ({navigation}) => {
   const [nombre, setNombre] = useState('');
+  const [cantidad, setCantidad] = useState('');
+  const [correo, setCorreo] = useState('');
   const [detalle, setDetalle] = useState('');
-  const [aleatorio, setAleatorio] = useState('');
-  const generateCode = () => {
-    let cadena = '';
-    for (let i = 0; i < 6; i += 1) {
-      let numaleatorio = Math.floor(Math.random() * 10);
-      cadena += numaleatorio;
-    }
-    setAleatorio(cadena);
-  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header2}>
@@ -42,35 +36,37 @@ export const RoomForm = ({navigation}) => {
             navigation.goBack();
           }}
         />
-        <Text style={styles.title2}>Crear nueva aula</Text>
+        <Text style={styles.title2}>Crear nuevo producto</Text>
       </View>
       <Upload />
       <InputContainer
-        placeholder="Nombre de la sala (Obligatorio)"
+        placeholder="Nombre del producto (Obligatorio)"
+        styles={styles.inputProduct}
         onChangeText={a => setNombre(a)}
       />
-      <View style={styles.styleView1}>
-        <Text style={styles.inputCodigo}>
-          {aleatorio ? aleatorio : 'Codigo'}
-        </Text>
-        <Button
-          text="Generar"
-          styles={styles.buttonGenerar}
-          onPress={generateCode}
-        />
-      </View>
       <InputContainer
-        placeholder="Agrega detalles sobre el aula..."
+        placeholder="Cantidad"
+        styles={styles.inputProduct}
+        keyboardType="numeric"
+        onChangeText={a => setCantidad(a)}
+      />
+      <InputContainer
+        placeholder="Nombre / Correo del responsable"
+        styles={styles.inputProduct}
+        onChangeText={a => setCorreo(a)}
+      />
+      <InputContainer
+        placeholder="Agrega detalles del producto..."
         multiLine={true}
         numberOfLines={10}
-        styles={styles.textaerea}
+        styles={styles.textProduct}
         onChangeText={a => setDetalle(a)}
       />
       <Button
         text="Guardar"
         styles={styles.buttonGuardar}
         onPress={() => {
-          crearAula(nombre, aleatorio, detalle);
+          crearProductos(nombre, cantidad, correo, detalle);
           navigation.goBack();
         }}
       />

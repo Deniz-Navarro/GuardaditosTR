@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import CustomModal from '../components/atoms/CustomModal';
+import Button from '../components/atoms/Button';
 import styles from './styles';
 
 export const Room = ({navigation}) => {
@@ -21,6 +22,13 @@ export const Room = ({navigation}) => {
         onPress2={() => {
           toggleModal();
           navigation.navigate('RoomForm');
+        }}
+      />
+      <Button
+        text="Generar"
+        styles={styles.buttonGenerar}
+        onPress={() => {
+          navigation.navigate('ProductForm');
         }}
       />
     </SafeAreaView>
