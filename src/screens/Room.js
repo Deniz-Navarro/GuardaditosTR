@@ -1,25 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import {SafeAreaView, Text, View, ActivityIndicator} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import CustomModal from '../components/atoms/CustomModal';
-import ItemRoom from '../components/atoms/itemRoom';
+import HorizontalList from '../components/molecules/HorizontalList';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-const aulas = new Array();
+import {useIsFocused} from '@react-navigation/native';
 
 export const Room = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [aula, setAula] = useState([]);
+  const [aulas, setAulas] = useState([]);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const isFocused = useIsFocused();
   useEffect(() => {
     const current = auth().currentUser;
     firestore()
@@ -28,12 +23,14 @@ export const Room = ({navigation}) => {
       .where('users', 'array-contains', current.uid)
       .get()
       .then(querySnapshot => {
+        const aulasAux = [];
         querySnapshot.forEach(documentSnapshot => {
-          setAula(documentSnapshot.data());
+          aulasAux.push(documentSnapshot.data());
         });
+        isFocused && setAulas(aulasAux);
       });
-  }, []);
-  aulas.push(aula);
+  }, [isFocused]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -48,15 +45,11 @@ export const Room = ({navigation}) => {
           navigation.navigate('RoomForm');
         }}
       />
-      <FlatList
-        data={aulas}
-        renderItem={({item}) => (
-          <View>
-            <Text>ID: {item.codigo}</Text>
-            <Text>Nombre: {item.nombre}</Text>
-          </View>
-        )}
-      />
+      {aulas.length > 0 ? (
+        <HorizontalList data={aulas} />
+      ) : (
+        <ActivityIndicator size="large" color="#5A813F" />
+      )}
     </SafeAreaView>
   );
 };

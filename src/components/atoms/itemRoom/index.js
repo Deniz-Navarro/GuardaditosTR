@@ -3,15 +3,15 @@ import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import LogoImg from '../../../assets/images/LogoUDC2.png';
 
 const ItemRoom = props => {
-  const {title, stock, img, text, onPress} = props;
+  const {title, codigo, img, text, onPress} = props;
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image style={styles.tinyLogo} source={LogoImg} />
       <View style={styles.contentDetail}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.view}>
-          <Text>Stock: {stock}</Text>
-          <Text>Descripción: {text}</Text>
+          <Text>Codigo: {codigo}</Text>
+          <Text style={styles.info}>Descripción: {text}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -24,9 +24,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#6B9C54',
     width: '95%',
-    height: '13%',
     borderRadius: 5,
-    margin: 5,
+    marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: 'black',
     flexDirection: 'row',
@@ -49,5 +48,8 @@ const styles = StyleSheet.create({
   },
   contentDetail: {
     marginLeft: 10,
+  },
+  info: {
+    maxWidth: 250,
   },
 });
