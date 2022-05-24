@@ -6,14 +6,17 @@ import Upload from '../components/atoms/Upload';
 import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const crearAula = (nombre, aleatorio, detalle) => {
+  const current = auth().currentUser;
   firestore()
     .collection('Aulas')
     .add({
       nombre: nombre,
       codigo: aleatorio,
       detalle: detalle,
+      users: [current.uid],
     })
     .then(() => {
       console.log('Aula creada!');
@@ -32,6 +35,7 @@ export const RoomForm = ({navigation}) => {
     }
     setAleatorio(cadena);
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header2}>

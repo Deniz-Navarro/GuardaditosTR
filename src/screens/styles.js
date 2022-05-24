@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   //RoomForm styles
   header2: {
     flexDirection: 'row',
-    padding: 5,
-    margin: 5,
+    width: '100%',
+    marginBottom: 20,
   },
   inputCodigo: {
     width: 200,
