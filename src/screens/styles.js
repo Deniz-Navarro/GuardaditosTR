@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   //RoomForm styles
   header2: {
     flexDirection: 'row',
-    padding: 5,
-    margin: 5,
+    width: '100%',
+    marginBottom: 20,
   },
   inputCodigo: {
     width: 200,
@@ -88,6 +88,10 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
   },
+  styleView1: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   textaerea: {
     height: 200,
     textAlignVertical: 'top',
@@ -97,6 +101,26 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     padding: 10,
     fontSize: 20,
+  },
+  textProduct: {
+    height: 120,
+    textAlignVertical: 'top',
+    marginTop: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: 'grey',
+    padding: 10,
+    fontSize: 20,
+  },
+  inputProduct: {
+    height: 40,
+    textAlignVertical: 'top',
+    marginTop: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: 'grey',
+    padding: 10,
+    fontSize: 18,
   },
   buttonGenerar: {
     width: 150,
