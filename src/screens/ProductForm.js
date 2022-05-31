@@ -7,21 +7,25 @@ import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import firestore from '@react-native-firebase/firestore';
 
-const crearProductos = (nombre, cantidad, correo, detalle) => {
+const crearProductos = (clave, nombre, cantidad, correo, detalle, itemRoom) => {
   firestore()
     .collection('Elementos')
     .add({
+      clave: clave,
       nombre: nombre,
-      cantidad: cantidad,
+      cantidad: parseInt(cantidad),
       correo: correo,
       detalle: detalle,
+      roomCode: itemRoom,
     })
     .then(() => {
       console.log('Producto creado!');
     });
 };
 
-export const ProductForm = ({navigation}) => {
+export const ProductForm = ({route, navigation}) => {
+  const {itemRoom} = route.params;
+  const [clave, setClave] = useState('');
   const [nombre, setNombre] = useState('');
   const [cantidad, setCantidad] = useState('');
   const [correo, setCorreo] = useState('');
@@ -39,6 +43,11 @@ export const ProductForm = ({navigation}) => {
         <Text style={styles.title2}>Crear nuevo producto</Text>
       </View>
       <Upload />
+      <InputContainer
+        placeholder="Clave (Obligatorio)"
+        styles={styles.inputProduct}
+        onChangeText={a => setClave(a)}
+      />
       <InputContainer
         placeholder="Nombre del producto (Obligatorio)"
         styles={styles.inputProduct}
@@ -66,7 +75,7 @@ export const ProductForm = ({navigation}) => {
         text="Guardar"
         styles={styles.buttonGuardar}
         onPress={() => {
-          crearProductos(nombre, cantidad, correo, detalle);
+          crearProductos(clave, nombre, cantidad, correo, detalle, itemRoom);
           navigation.goBack();
         }}
       />

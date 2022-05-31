@@ -39,6 +39,8 @@ export const Room = ({navigation}) => {
       </View>
       <CustomModal
         isModalVisible={isModalVisible}
+        txt1="Ingresar a sala"
+        txt2="Crear nueva sala"
         onPress={toggleModal}
         onPress2={() => {
           toggleModal();
@@ -46,7 +48,7 @@ export const Room = ({navigation}) => {
         }}
       />
       {aulas.length > 0 ? (
-        <HorizontalList data={aulas} />
+        <HorizontalList data={aulas} navigation={navigation} />
       ) : (
         <ActivityIndicator size="large" color="#5A813F" />
       )}
