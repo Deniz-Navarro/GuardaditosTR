@@ -24,7 +24,10 @@ const onGoogleButtonPress = async navigation => {
   const authAux = await auth().signInWithCredential(googleCredential);
   if (authAux.additionalUserInfo.profile.hd === 'ucol.mx') {
     if (authAux.additionalUserInfo.isNewUser) {
-      console.log('aa');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Register', params: {googleSignUp: true}}],
+      });
     }
     return navigateToHome(navigation);
   }

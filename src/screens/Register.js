@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, Alert} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
@@ -31,7 +31,7 @@ const onSubmit = (
         })
         .catch(error => console.log(error));
     } else {
-      alert('Este correo no pertenece a la UDC');
+      Alert.alert('Este correo no pertenece a la UDC');
     }
   }
 };
@@ -51,7 +51,8 @@ const addUserInfo = (email, user, accountNumber, fullName, uid) => {
     });
 };
 
-export const Register = ({navigation}) => {
+export const Register = ({navigation, route}) => {
+  const googleSignUp = route.params?.googleSignUp || false;
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [pass, setPass] = useState('');
