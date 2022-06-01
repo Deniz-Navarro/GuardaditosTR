@@ -4,7 +4,8 @@ const ItemStyles = StyleSheet.create({
   container: {
     backgroundColor: '#6B9C54',
     width: '95%',
-    borderRadius: 5,
+    marginHorizontal: 10,
+    borderRadius: 8,
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: 'black',
@@ -16,7 +17,7 @@ const ItemStyles = StyleSheet.create({
     height: 60,
     marginBottom: 20,
     borderRadius: 180,
-    marginLeft: 10,
+    marginLeft: 6,
     marginTop: 5,
   },
   view: {
@@ -27,7 +28,7 @@ const ItemStyles = StyleSheet.create({
     fontSize: 18,
   },
   contentDetail: {
-    marginLeft: 10,
+    marginLeft: 15,
   },
   info: {
     maxWidth: 250,
