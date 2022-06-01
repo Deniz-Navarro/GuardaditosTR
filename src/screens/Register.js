@@ -7,6 +7,14 @@ import LogoImg from '../assets/images/LogoUDC2.png';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 
+const onSubmitGoogle = (mail, user, accountNumber, fullName, navigation) => {
+  const current = auth().currentUser;
+  addUserInfo(mail, user, accountNumber, fullName, current.uid);
+  navigation.reset({
+    index: 0,
+    routes: [{name: 'Menu'}],
+  });
+};
 const onSubmit = (
   mail,
   user,
@@ -15,7 +23,11 @@ const onSubmit = (
   pass,
   pass2,
   navigation,
+  googleSignUp,
 ) => {
+  if (googleSignUp) {
+    return onSubmitGoogle(mail, user, accountNumber, fullName, navigation);
+  }
   if (pass === pass2) {
     if (mail.endsWith('@ucol.mx')) {
       auth()
@@ -53,12 +65,13 @@ const addUserInfo = (email, user, accountNumber, fullName, uid) => {
 
 export const Register = ({navigation, route}) => {
   const googleSignUp = route.params?.googleSignUp || false;
-  const [email, setEmail] = useState('');
+  const userData = route.params?.userData || null;
+  const [email, setEmail] = useState(userData?.email || '');
   const [username, setUsername] = useState('');
-  const [pass, setPass] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [pass, setPass] = useState(userData?.email || '');
+  const [confirm, setConfirm] = useState(userData?.email || '');
   const [accountNumber, setAccountNumber] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState(userData?.fullName || '');
 
   return (
     <ScrollView style={styles.container}>
@@ -73,6 +86,7 @@ export const Register = ({navigation, route}) => {
         onChangeText={a => {
           setEmail(a);
         }}
+        disabled={googleSignUp}
       />
       <InputContainer
         placeholder="Nombre completo"
@@ -80,6 +94,7 @@ export const Register = ({navigation, route}) => {
         onChangeText={a => {
           setFullName(a);
         }}
+        disabled={googleSignUp}
       />
       <InputContainer
         placeholder="Nombre de usuario"
@@ -103,6 +118,7 @@ export const Register = ({navigation, route}) => {
         onChangeText={a => {
           setPass(a);
         }}
+        disabled={googleSignUp}
       />
       <InputContainer
         placeholder="Confirmar contraseña"
@@ -111,6 +127,7 @@ export const Register = ({navigation, route}) => {
         onChangeText={a => {
           setConfirm(a);
         }}
+        disabled={googleSignUp}
       />
       <Button
         text="Registrarse"
@@ -123,6 +140,7 @@ export const Register = ({navigation, route}) => {
             pass,
             confirm,
             navigation,
+            googleSignUp,
           )
         }
       />

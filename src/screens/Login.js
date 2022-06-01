@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Alert} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import Button from '../components/atoms/Button';
 import auth from '@react-native-firebase/auth';
@@ -23,13 +23,21 @@ const onGoogleButtonPress = async navigation => {
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
   const authAux = await auth().signInWithCredential(googleCredential);
   if (authAux.additionalUserInfo.profile.hd === 'ucol.mx') {
+    const userData = {
+      email: authAux.additionalUserInfo.profile.email,
+      fullName: authAux.additionalUserInfo.profile.given_name,
+    };
     if (authAux.additionalUserInfo.isNewUser) {
-      navigation.reset({
+      return navigation.reset({
         index: 0,
-        routes: [{name: 'Register', params: {googleSignUp: true}}],
+        routes: [{name: 'Register', params: {googleSignUp: true, userData}}],
       });
     }
     return navigateToHome(navigation);
+  } else {
+    Alert.alert('Este correo no pertenece a la UDC.');
+    auth().signOut();
+    GoogleSignin.signOut();
   }
 };
 
