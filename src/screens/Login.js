@@ -85,6 +85,7 @@ export const Login = ({navigation}) => {
       <Button
         text="Iniciar sesion con Google"
         onPress={() => onGoogleButtonPress(navigation)}
+        icon="google"
       />
       <Text
         style={styles.registro}

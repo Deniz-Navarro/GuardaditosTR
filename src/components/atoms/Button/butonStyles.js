@@ -2,6 +2,8 @@ import {StyleSheet} from 'react-native';
 
 const botonStyle = StyleSheet.create({
   buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     backgroundColor: '#5A813F',
     marginTop: 10,
     marginBottom: 10,
