@@ -4,7 +4,7 @@ import ItemRoom from '../../atoms/itemRoom';
 import ItemProduct from '../../atoms/ItemProduct';
 
 const HorizontalList = props => {
-  const {data, navigation, isProduct} = props;
+  const {data, navigation, isProduct, isLoading, onRefresh} = props;
   const renderItem = ({item}) => (
     <ItemRoom
       title={item.nombre}
@@ -27,6 +27,8 @@ const HorizontalList = props => {
       data={data}
       style={flatStyles.container}
       renderItem={isProduct ? renderItem2 : renderItem}
+      refreshing={isLoading}
+      onRefresh={onRefresh}
     />
   );
 };

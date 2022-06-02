@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, View, ActivityIndicator} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import CustomModal from '../components/atoms/CustomModal';
 import HorizontalList from '../components/molecules/HorizontalList';
@@ -10,6 +10,7 @@ import SearchBar from '../components/atoms/SearchBar';
 
 export const Room = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [aulas, setAulas] = useState([]);
   const toggleModal = () => {
@@ -25,10 +26,12 @@ export const Room = ({navigation}) => {
     data.forEach(documentSnapshot => {
       aulasAux.push(documentSnapshot.data());
     });
+    setLoading(false);
     return aulasAux;
   };
 
   const setAulasFiltered = async () => {
+    setLoading(true);
     const aulasAux = await getAulas();
     const aulasAuxFiltered = aulasAux.filter(aula => {
       const nombreLowCase = aula.nombre.toLowerCase();
@@ -61,11 +64,12 @@ export const Room = ({navigation}) => {
           navigation.navigate('RoomForm');
         }}
       />
-      {aulas.length > 0 ? (
-        <HorizontalList data={aulas} navigation={navigation} />
-      ) : (
-        <ActivityIndicator size="large" color="#5A813F" />
-      )}
+      <HorizontalList
+        data={aulas}
+        navigation={navigation}
+        isLoading={isLoading}
+        onRefresh={setAulasFiltered}
+      />
     </SafeAreaView>
   );
 };
