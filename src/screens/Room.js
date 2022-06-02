@@ -52,7 +52,7 @@ export const Room = ({navigation}) => {
     const aulasAux = [];
     data.forEach(documentSnapshot => {
       aulasAux.push(documentSnapshot.data());
-      isEmpty.current = true;
+      isEmpty.current = false;
     });
     setLoading(false);
     return aulasAux;

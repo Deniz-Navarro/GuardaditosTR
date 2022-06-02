@@ -37,9 +37,9 @@ const HorizontalList = props => {
       onRefresh={onRefresh}
       ListEmptyComponent={
         isEmpty ? (
-          <EmptyText text="No se encontró ningún aula que coincida." />
-        ) : (
           <EmptyText text="No estás registrado en nigún aula." />
+        ) : (
+          <EmptyText text="No se encontró ningún aula que coincida." />
         )
       }
     />
