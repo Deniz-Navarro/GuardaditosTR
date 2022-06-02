@@ -149,6 +149,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+  itemSala: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10,
+    width: '100%',
+    height: 60,
+    padding: 10,
+    borderColor: 'black',
+    borderStyle: 'dotted',
+    borderWidth: 2,
+    borderRadius: 1,
+  },
 });
 
 export default styles;

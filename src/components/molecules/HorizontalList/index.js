@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import ItemRoom from '../../atoms/itemRoom';
 import ItemProduct from '../../atoms/ItemProduct';
 
@@ -16,6 +16,7 @@ const HorizontalList = props => {
   const renderItem2 = ({item}) => (
     <ItemProduct
       title={item.nombre}
+      claveProducto={item.clave}
       cantidad={item.cantidad}
       text={item.detalle}
       navigation={navigation}

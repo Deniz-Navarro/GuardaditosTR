@@ -4,9 +4,15 @@ import LogoImg from '../../../assets/images/LogoUDC2.png';
 import ProductStyles from './productStyles';
 
 const ItemProduct = props => {
-  const {clave, title, cantidad, img, text, navigation} = props;
+  const {title, cantidad, img, text, navigation, claveProducto} = props;
   return (
-    <TouchableOpacity style={ProductStyles.container}>
+    <TouchableOpacity
+      style={ProductStyles.container}
+      onPress={() =>
+        navigation.navigate('ProductDetails', {
+          clave: claveProducto,
+        })
+      }>
       <View style={ProductStyles.containerImage}>
         <Image style={ProductStyles.tinyLogo} source={LogoImg} />
       </View>

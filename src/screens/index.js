@@ -7,3 +7,4 @@ export {User} from './User';
 export {RoomForm} from './RoomForm';
 export {RoomDetails} from './RoomDetails';
 export {ProductForm} from './ProductForm';
+export {ProductDetails} from './ProductDetails';
