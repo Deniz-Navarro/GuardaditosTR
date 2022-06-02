@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "95653926946-807o8oooik6outurtqa1fu5vlir8etlc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guardaditostr",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "95653926946-ltcr5154v3fa7t5n6s2rhu2k6cdd8irr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guardaditostr",
+            "certificate_hash": "2c3fc71ac54932959d5f792a5edc98b924b1da2a"
+          }
+        },
+        {
           "client_id": "95653926946-3vlr2lqcf2cph3graamr9em2mh6vlgdp.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +45,13 @@
             {
               "client_id": "95653926946-3vlr2lqcf2cph3graamr9em2mh6vlgdp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "95653926946-1n531se2kcaep83l4kmlpbmfkn414q3h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.GuardaditosTR"
+              }
             }
           ]
         }

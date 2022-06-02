@@ -77,6 +77,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     marginBottom: 20,
+    borderBottomColor: 'black',
+    paddingBottom: 5,
+    borderBottomWidth: 1,
   },
   inputCodigo: {
     width: 200,
@@ -139,6 +142,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 10,
+  },
+  footer: {
+    paddingBottom: 10,
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
   },
 });
 

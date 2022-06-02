@@ -12,6 +12,7 @@ const InputContainer = props => {
     maxLength,
     multiLine,
     numberOfLines,
+    disabled,
   } = props;
   return (
     <View>
@@ -25,6 +26,8 @@ const InputContainer = props => {
         maxLength={maxLength}
         multiLine={multiLine}
         numberOfLines={numberOfLines}
+        editable={!disabled}
+        selectTextOnFocus={!disabled}
       />
     </View>
   );
