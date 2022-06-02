@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import CustomModal from '../components/atoms/CustomModal';
+import CustomModalInput from '../components/atoms/CustomModalInput';
 import HorizontalList from '../components/molecules/HorizontalList';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
@@ -10,6 +11,7 @@ import SearchBar from '../components/atoms/SearchBar';
 
 export const Room = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalInputVisible, setModalInputVisible] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [aulas, setAulas] = useState([]);
@@ -17,6 +19,30 @@ export const Room = ({navigation}) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const toggleModalInput = () => {
+    setModalInputVisible(!isModalInputVisible);
+  };
+
+  const submitCode = async (code, setCode) => {
+    setLoading(true);
+    const currentUser = auth().currentUser;
+    const uidArrayUnion = firestore.FieldValue.arrayUnion(currentUser.uid);
+    const dataAulas = await firestore()
+      .collection('Aulas')
+      .where('codigo', '==', code)
+      .get();
+    let docUid;
+    dataAulas.forEach(a => (docUid = a.id));
+    await firestore()
+      .collection('Aulas')
+      .doc(docUid)
+      .update({users: uidArrayUnion});
+    setModalInputVisible(false);
+    setCode('');
+    setAulasFiltered();
+    setLoading(false);
+  };
+
   const getAulas = async () => {
     const current = auth().currentUser;
     const data = await firestore()
@@ -61,10 +87,20 @@ export const Room = ({navigation}) => {
         txt1="Ingresar a sala"
         txt2="Crear nueva sala"
         onPress={toggleModal}
+        onPress1={() => {
+          toggleModal();
+          toggleModalInput();
+        }}
         onPress2={() => {
           toggleModal();
           navigation.navigate('RoomForm');
         }}
+      />
+      <CustomModalInput
+        isModalVisible={isModalInputVisible}
+        txt="Ingresa el código:"
+        onPress={toggleModalInput}
+        onPress1={submitCode}
       />
       <HorizontalList
         data={aulas}
