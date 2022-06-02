@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import CustomModal from '../components/atoms/CustomModal';
@@ -13,6 +13,7 @@ export const Room = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [aulas, setAulas] = useState([]);
+  const isEmpty = useRef(true);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -25,6 +26,7 @@ export const Room = ({navigation}) => {
     const aulasAux = [];
     data.forEach(documentSnapshot => {
       aulasAux.push(documentSnapshot.data());
+      isEmpty.current = true;
     });
     setLoading(false);
     return aulasAux;
@@ -69,6 +71,7 @@ export const Room = ({navigation}) => {
         navigation={navigation}
         isLoading={isLoading}
         onRefresh={setAulasFiltered}
+        isEmpty={isEmpty.current}
       />
     </SafeAreaView>
   );

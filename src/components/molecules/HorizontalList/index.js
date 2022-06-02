@@ -4,7 +4,7 @@ import ItemRoom from '../../atoms/itemRoom';
 import ItemProduct from '../../atoms/ItemProduct';
 
 const HorizontalList = props => {
-  const {data, navigation, isProduct, isLoading, onRefresh} = props;
+  const {data, navigation, isProduct, isLoading, onRefresh, isEmpty} = props;
   const renderItem = ({item}) => (
     <ItemRoom
       title={item.nombre}
@@ -22,6 +22,12 @@ const HorizontalList = props => {
     />
   );
 
+  const EmptyText = ({text}) => (
+    <View style={{alignItems: 'center'}}>
+      <Text>{text}</Text>
+    </View>
+  );
+
   return (
     <FlatList
       data={data}
@@ -29,6 +35,13 @@ const HorizontalList = props => {
       renderItem={isProduct ? renderItem2 : renderItem}
       refreshing={isLoading}
       onRefresh={onRefresh}
+      ListEmptyComponent={
+        isEmpty ? (
+          <EmptyText text="No se encontró ningún aula que coincida." />
+        ) : (
+          <EmptyText text="No estás registrado en nigún aula." />
+        )
+      }
     />
   );
 };
