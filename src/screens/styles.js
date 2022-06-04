@@ -152,8 +152,7 @@ const styles = StyleSheet.create({
   itemSala: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 10,
-    width: '100%',
+    marginBottom: 20,
     height: 60,
     padding: 10,
     borderColor: 'black',

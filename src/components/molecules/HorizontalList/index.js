@@ -1,10 +1,11 @@
 import React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View, Text} from 'react-native';
 import ItemRoom from '../../atoms/itemRoom';
 import ItemProduct from '../../atoms/ItemProduct';
 
 const HorizontalList = props => {
   const {data, navigation, isProduct, isLoading, onRefresh, isEmpty} = props;
+  var text = '';
   const renderItem = ({item}) => (
     <ItemRoom
       title={item.nombre}
@@ -29,6 +30,10 @@ const HorizontalList = props => {
     </View>
   );
 
+  isProduct
+    ? (text = 'No existe ningún producto registrado en el aula.')
+    : (text = 'No estás registrado en nigún aula.');
+
   return (
     <FlatList
       data={data}
@@ -38,7 +43,7 @@ const HorizontalList = props => {
       onRefresh={onRefresh}
       ListEmptyComponent={
         isEmpty ? (
-          <EmptyText text="No estás registrado en nigún aula." />
+          <EmptyText text={text} />
         ) : (
           <EmptyText text="No se encontró ningún aula que coincida." />
         )

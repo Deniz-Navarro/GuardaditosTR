@@ -5,10 +5,12 @@ import Button from '../Button';
 import modalStyles from './modalStyles';
 import InputContainer from '../TextInput';
 import firestore from '@react-native-firebase/firestore';
+import styles from '../../../screens/styles';
 
 const EditModal = props => {
   const {isModalVisible, onPress, campo, id} = props;
   const [nuevoValor, setNuevoValor] = useState('');
+  var keyboardtype = false;
   const updateInfo = () => {
     firestore()
       .collection('Elementos')
@@ -20,6 +22,9 @@ const EditModal = props => {
         console.log('User updated!');
       });
   };
+  if (campo === 'cantidad') {
+    keyboardtype = true;
+  }
   return (
     <Modal animationType="slide" visible={isModalVisible} transparent>
       <View style={modalStyles.modalStyle}>
@@ -29,8 +34,9 @@ const EditModal = props => {
         </View>
         <Text>{campo}</Text>
         <InputContainer
-          placeholder={props.anterior}
+          placeholder={props.anterior?.toString()}
           value={nuevoValor}
+          keyboardType={keyboardtype ? 'numeric' : null}
           onChangeText={a => {
             setNuevoValor(a);
           }}

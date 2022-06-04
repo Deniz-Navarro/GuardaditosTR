@@ -13,10 +13,11 @@ const crearProductos = (clave, nombre, cantidad, correo, detalle, itemRoom) => {
     .add({
       clave: clave,
       nombre: nombre,
-      cantidad: parseInt(cantidad),
+      cantidad: parseInt(cantidad) > 0 ? parseInt(cantidad) : 1,
       correo: correo,
       detalle: detalle,
       roomCode: itemRoom,
+      estado: true,
     })
     .then(() => {
       console.log('Producto creado!');
