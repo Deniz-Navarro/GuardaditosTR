@@ -1,11 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import * as ImagePicker from 'react-native-image-picker';
 import imageUploaderStyles from './imageUploaderStyles';
+import storage from '@react-native-firebase/storage';
 
-const Upload = () => {
+const Upload = props => {
+  const {id, carpeta} = props;
   const [image, setImage] = useState();
+  const [url, setUrl] = useState(undefined);
+  const [encontrado, setEncontrado] = useState(false);
+
+  useEffect(() => {
+    const getImage = async () => {
+      const consult = storage().ref(id).getDownloadURL();
+      try {
+        await consult;
+        setUrl(consult);
+        setEncontrado(true);
+      } catch (e) {
+        setUrl(null);
+      }
+    };
+    getImage();
+  }, [id, image]);
 
   const addImage = () => {
     let options = {
@@ -22,6 +40,20 @@ const Upload = () => {
       },
     };
 
+    const uploadImage = async uri => {
+      const task = storage()
+        .ref(carpeta + id)
+        .putFile(uri);
+      try {
+        await task;
+        console.log('agregado');
+        setUrl(uri);
+      } catch (e) {
+        console.error(e);
+        setUrl(null);
+      }
+    };
+
     ImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -32,6 +64,8 @@ const Upload = () => {
       } else {
         let respuesta = response.assets[0];
         setImage(respuesta);
+        uploadImage(respuesta.uri);
+        setEncontrado(true);
       }
     });
   };

@@ -9,6 +9,7 @@ import {
   ProductForm,
   RoomDetails,
   ProductDetails,
+  HomeProducts,
 } from '../screens';
 import auth from '@react-native-firebase/auth';
 import Menu from '../components/molecules/menu';
@@ -35,6 +36,7 @@ const MainStack = () => {
         <Stack.Screen name="Menu" component={Menu} />
         <Stack.Screen name="ProductForm" component={ProductForm} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        <Stack.Screen name="HomeProducts" component={HomeProducts} />
       </Stack.Navigator>
     </NavigationContainer>
   );

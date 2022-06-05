@@ -46,10 +46,7 @@ const authUser = (email, password, navigation) => {
     .signInWithEmailAndPassword(email, password)
     .then(() => navigateToHome(navigation))
     .catch(error => {
-      if (error.code === 'auth/operation-not-allowed') {
-        console.log('Usuario o contraseña incorrectos');
-      }
-      console.error(error);
+      alert('Usuario y/o contraseña incorrectos');
     });
 };
 

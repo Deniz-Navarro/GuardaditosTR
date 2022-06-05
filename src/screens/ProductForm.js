@@ -43,7 +43,7 @@ export const ProductForm = ({route, navigation}) => {
         />
         <Text style={styles.title2}>Crear nuevo producto</Text>
       </View>
-      <Upload />
+      <Upload id={clave} carpeta="elements/" />
       <InputContainer
         placeholder="Clave (Obligatorio)"
         styles={styles.inputProduct}

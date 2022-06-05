@@ -48,7 +48,7 @@ export const RoomForm = ({navigation}) => {
         />
         <Text style={styles.title2}>Crear nueva aula</Text>
       </View>
-      <Upload />
+      <Upload id={aleatorio} carpeta="rooms/" />
       <InputContainer
         placeholder="Nombre de la sala (Obligatorio)"
         onChangeText={a => setNombre(a)}

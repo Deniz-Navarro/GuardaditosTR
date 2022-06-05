@@ -59,7 +59,7 @@ export const RoomDetails = ({route, navigation}) => {
       <CustomModal
         isModalVisible={isModalVisible}
         txt1="Agregar producto"
-        txt2="Ver usuarios"
+        txt2="Ver usarios"
         onPress={toggleModal}
         onPress1={() => {
           toggleModal();

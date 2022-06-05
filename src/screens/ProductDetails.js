@@ -19,8 +19,7 @@ const deleteProduct = id => {
     });
 };
 
-const solicitarProducto = (id, cantidad, setSolicitado) => {
-  const currentUser = auth().currentUser;
+export const devolverProducto = (id, cantidad, setSolicitado) => {
   firestore()
     .collection('Elementos')
     .doc(id)
@@ -35,20 +34,24 @@ const solicitarProducto = (id, cantidad, setSolicitado) => {
   setSolicitado('');
 };
 
-const devolverProducto = (id, cantidad, setSolicitado) => {
+export const solicitarProducto = (id, cantidad, setSolicitado) => {
   const currentUser = auth().currentUser;
-  firestore()
-    .collection('Elementos')
-    .doc(id)
-    .update({
-      estado: cantidad > 1 ? true : false,
-      cantidad: cantidad > 0 ? cantidad - 1 : 0,
-      solicitado: currentUser.uid,
-    })
-    .then(() => {
-      console.log('User updated!');
-    });
-  setSolicitado(currentUser.uid);
+  if (cantidad > 0) {
+    firestore()
+      .collection('Elementos')
+      .doc(id)
+      .update({
+        estado: cantidad > 1 ? true : false,
+        cantidad: cantidad > 0 ? cantidad - 1 : 0,
+        solicitado: currentUser.uid,
+      })
+      .then(() => {
+        console.log('User updated!');
+      });
+    setSolicitado(currentUser.uid);
+  } else {
+    alert('Este producto no esta disponible');
+  }
 };
 
 export const ProductDetails = ({route, navigation}) => {
@@ -141,8 +144,8 @@ export const ProductDetails = ({route, navigation}) => {
         text={solicitado === currentUser.uid ? 'Devolver' : 'Solicitar'}
         onPress={() => {
           solicitado === currentUser.uid
-            ? solicitarProducto(documentId, product.cantidad, setSolicitado)
-            : devolverProducto(documentId, product.cantidad, setSolicitado);
+            ? devolverProducto(documentId, product.cantidad, setSolicitado)
+            : solicitarProducto(documentId, product.cantidad, setSolicitado);
         }}
       />
       <Button

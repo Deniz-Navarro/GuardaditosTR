@@ -8,6 +8,7 @@ import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import SearchBar from '../components/atoms/SearchBar';
+import {useIsFocused} from '@react-navigation/native';
 
 export const Room = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -16,6 +17,7 @@ export const Room = ({navigation}) => {
   const [searchValue, setSearchValue] = useState('');
   const [aulas, setAulas] = useState([]);
   const isEmpty = useRef(true);
+  const isFocused = useIsFocused();
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -67,13 +69,13 @@ export const Room = ({navigation}) => {
         return aula;
       }
     });
-    setAulas(searchValue === '' ? aulasAux : aulasAuxFiltered);
+    isFocused && setAulas(searchValue === '' ? aulasAux : aulasAuxFiltered);
   };
 
   useEffect(() => {
     setAulasFiltered();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue]);
+  }, [searchValue, isFocused]);
 
   return (
     <SafeAreaView style={styles.container}>

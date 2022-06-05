@@ -1,4 +1,5 @@
 export {Home} from './Home';
+export {HomeProducts} from './HomeProducs';
 export {Login} from './Login';
 export {Register} from './Register';
 export {Welcome} from './Welcome';
