@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {SafeAreaView, View, Text, ActivityIndicator} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import styles from './styles';
@@ -11,6 +11,7 @@ export const RoomDetails = ({route, navigation}) => {
   const {roomCode} = route.params;
   const [isModalVisible, setModalVisible] = useState(false);
   const [products, setProducts] = useState([]);
+  const isEmpty = useRef(true);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -38,6 +39,7 @@ export const RoomDetails = ({route, navigation}) => {
         const aulasAux = [];
         querySnapshot.forEach(documentSnapshot => {
           aulasAux.push(documentSnapshot.data());
+          isEmpty.current = false;
         });
         isFocused && setProducts(aulasAux);
       });
@@ -57,7 +59,7 @@ export const RoomDetails = ({route, navigation}) => {
       <CustomModal
         isModalVisible={isModalVisible}
         txt1="Agregar producto"
-        txt2="Historial"
+        txt2="Ver usarios"
         onPress={toggleModal}
         onPress1={() => {
           toggleModal();
@@ -69,11 +71,12 @@ export const RoomDetails = ({route, navigation}) => {
       <Text style={styles.subtitle}>
         Codigo de invitacion: {roomInfo.codigo}
       </Text>
-      {products.length > 0 ? (
-        <HorizontalList data={products} navigation={navigation} isProduct />
-      ) : (
-        <ActivityIndicator size="large" color="#5A813F" />
-      )}
+      <HorizontalList
+        data={products}
+        navigation={navigation}
+        isProduct
+        isEmpty={isEmpty.current}
+      />
       <View style={styles.footer}>
         <CustomButtom
           name="plus"

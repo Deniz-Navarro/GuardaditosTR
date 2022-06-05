@@ -1,15 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {Text, SafeAreaView, ScrollView} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {Text, View, ScrollView} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import Button from '../components/atoms/Button';
+import CustomButtom from '../components/atoms/CustomButtom';
 import Upload from '../components/atoms/Upload';
 import styles from './styles';
 import UserInfo from '../components/atoms/UserInfo';
+import HorizontalList from '../components/molecules/HorizontalList';
+import {useIsFocused} from '@react-navigation/native';
 
 export const User = ({navigation}) => {
   const [userInfo, setUserInfo] = useState('');
-
+  const [elementos, setElementos] = useState('');
+  const isEmpty = useRef(true);
+  const current = auth().currentUser;
+  const isFocused = useIsFocused();
   //Method to signOut
   const handleLogout = async () => {
     await auth().signOut();
@@ -20,7 +25,6 @@ export const User = ({navigation}) => {
   };
 
   useEffect(() => {
-    const current = auth().currentUser;
     firestore()
       .collection('Users')
       // Filter results
@@ -31,20 +35,56 @@ export const User = ({navigation}) => {
           setUserInfo(documentSnapshot.data());
         });
       });
-  }, []);
+  }, [current]);
+
+  useEffect(() => {
+    firestore()
+      .collection('Elementos')
+      // Filter results
+      .where('solicitado', '==', current.uid)
+      .get()
+      .then(querySnapshot => {
+        const elementosAux = [];
+        querySnapshot.forEach(documentSnapshot => {
+          elementosAux.push(documentSnapshot.data());
+          isEmpty.current = false;
+        });
+        isFocused && setElementos(elementosAux);
+      });
+  }, [current, isFocused]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Información de usuario</Text>
-      <Upload />
-      <ScrollView style={styles.userInfoContainer}>
-        <UserInfo text="Correo: " info={userInfo.correo} />
-        <UserInfo text="Username: " info={userInfo.nick} />
-        <UserInfo text="Numero de cuenta: " info={userInfo.numeroCuenta} />
-        <UserInfo text="Nombre: " info={userInfo.nombre} />
-      </ScrollView>
-      <Text style={styles.title}>Materiales</Text>
-      <Button text="Cerrar sesion" onPress={handleLogout} />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.title}>Información de usuario</Text>
+        <Upload id={current.uid} carpeta="users/" />
+        <ScrollView style={styles.userInfoContainer}>
+          <UserInfo text="Correo: " info={userInfo.correo} />
+          <UserInfo text="Username: " info={userInfo.nick} />
+          <UserInfo text="Numero de cuenta: " info={userInfo.numeroCuenta} />
+          <UserInfo text="Nombre: " info={userInfo.nombre} />
+        </ScrollView>
+      </View>
+      <View>
+        <Text style={styles.title}>Materiales solicitados</Text>
+        <HorizontalList
+          data={elementos}
+          navigation={navigation}
+          isProduct
+          isEmpty={isEmpty.current}
+          Home
+          User
+        />
+      </View>
+      <View style={styles.logout}>
+        <CustomButtom
+          name="log-out"
+          size={50}
+          onPress={handleLogout}
+          Ionicons
+        />
+        <Text style={styles.textlogout}>Cerrar sesion</Text>
+      </View>
+    </View>
   );
 };

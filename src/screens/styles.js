@@ -66,11 +66,20 @@ const styles = StyleSheet.create({
   },
   userInfoContainer: {
     marginTop: 40,
-    marginBottom: 40,
+    marginBottom: 20,
     height: 110,
     width: 325,
     alignSelf: 'center',
     flexGrow: 0,
+  },
+  logout: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    bottom: 0,
+  },
+  textlogout: {
+    color: '#B80B0B',
+    fontWeight: 'bold',
   },
   //RoomForm styles
   header2: {
@@ -148,6 +157,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     bottom: 0,
+  },
+  itemSala: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    height: 60,
+    padding: 10,
+    borderColor: 'black',
+    borderStyle: 'dotted',
+    borderWidth: 2,
+    borderRadius: 1,
   },
 });
 

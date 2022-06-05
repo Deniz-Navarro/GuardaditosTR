@@ -13,10 +13,11 @@ const crearProductos = (clave, nombre, cantidad, correo, detalle, itemRoom) => {
     .add({
       clave: clave,
       nombre: nombre,
-      cantidad: parseInt(cantidad),
+      cantidad: parseInt(cantidad) > 0 ? parseInt(cantidad) : 1,
       correo: correo,
       detalle: detalle,
       roomCode: itemRoom,
+      estado: true,
     })
     .then(() => {
       console.log('Producto creado!');
@@ -42,7 +43,7 @@ export const ProductForm = ({route, navigation}) => {
         />
         <Text style={styles.title2}>Crear nuevo producto</Text>
       </View>
-      <Upload />
+      <Upload id={clave} carpeta="elements/" />
       <InputContainer
         placeholder="Clave (Obligatorio)"
         styles={styles.inputProduct}
