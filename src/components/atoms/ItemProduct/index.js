@@ -5,11 +5,13 @@ import ProductStyles from './productStyles';
 
 const ItemProduct = props => {
   const {title, cantidad, img, text, onPress} = props;
+
+  const sourceImg = img ? {uri: img} : LogoImg;
   return (
     <View>
       <TouchableOpacity style={ProductStyles.container} onPress={onPress}>
         <View style={ProductStyles.containerImage}>
-          <Image style={ProductStyles.tinyLogo} source={LogoImg} />
+          <Image style={ProductStyles.tinyLogo} source={sourceImg} />
         </View>
         <View style={ProductStyles.contentDetail}>
           <Text style={ProductStyles.title}>{title}</Text>
