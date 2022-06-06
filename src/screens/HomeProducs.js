@@ -67,28 +67,50 @@ export const HomeProducts = ({route, navigation}) => {
       </View>
       <View style={styles.containerInfo2}>
         <ScrollView style={styles.adaptScroll}>
-          <Text style={styles.containText}>
-            Clave del producto:
-            {products ? <Text> {products.clave}</Text> : null}
-          </Text>
-          <Text style={styles.containText}>
-            Cantidad:
-            {products ? <Text> {products.cantidad}</Text> : null}
-          </Text>
-          <Text style={styles.containText}>
-            Persona responsable:
-            {products ? <Text> {products.correo}</Text> : null}
-          </Text>
-          <Text style={styles.containText}>
-            Estado:
-            {products ? (
-              <Text> {products.estado ? 'Disponible' : 'No Disponible'}</Text>
-            ) : null}
-          </Text>
-          <Text style={styles.containText}>
-            Este producto pertenece a:
-            {aula ? <Text> {aula.nombre}</Text> : null}
-          </Text>
+          <View style={styles.itemSala}>
+            <View style={styles.description}>
+              <Text style={styles.containText}>Clave:</Text>
+              <Text style={styles.textDescription}>
+                {products ? products.clave : ''}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.itemSala}>
+            <View style={styles.description}>
+              <Text style={styles.containText}>Cantidad:</Text>
+              <Text style={styles.textDescription}>
+                {products ? products.cantidad : ''}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.itemSala}>
+            <View style={styles.description}>
+              <Text style={styles.containText}>Responsable: </Text>
+              <Text style={styles.textDescription}>
+                {products ? products.correo : ''}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.itemSala}>
+            <View style={styles.description}>
+              <Text style={styles.containText}> Estado:</Text>
+              <Text style={styles.textDescription}>
+                {products
+                  ? products.estado
+                    ? 'Disponible'
+                    : 'No Disponible'
+                  : ''}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.itemSala}>
+            <View style={styles.description}>
+              <Text style={styles.containText}>Nombre de Aula:</Text>
+              <Text style={styles.textDescription}>
+                {aula ? <Text> {aula.nombre}</Text> : null}
+              </Text>
+            </View>
+          </View>
         </ScrollView>
         <View style={styles.containerButton}>
           <Button

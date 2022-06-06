@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Iconicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Home, Room, User} from '../../../screens';
 
@@ -12,7 +13,7 @@ const Menu = props => {
       screenOptions={{
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: '#646464',
+          backgroundColor: '#263238',
           height: 60,
         },
         tabBarLabelStyle: {
@@ -27,10 +28,10 @@ const Menu = props => {
         options={{
           tabBarIcon: ({focused}) => (
             <View>
-              <Icon
-                name="house-user"
+              <Iconicons
+                name="home-sharp"
                 size={30}
-                color={focused ? '#2F2F2F' : '#ffffff'}
+                color={focused ? '#000' : '#ffffff'}
               />
             </View>
           ),
@@ -45,7 +46,7 @@ const Menu = props => {
               <Icon
                 name="box-open"
                 size={25}
-                color={focused ? '#2F2F2F' : '#ffffff'}
+                color={focused ? '#000' : '#ffffff'}
               />
             </View>
           ),
@@ -60,7 +61,7 @@ const Menu = props => {
               <Icon
                 name="user-tie"
                 size={30}
-                color={focused ? '#2F2F2F' : '#ffffff'}
+                color={focused ? '#000' : '#ffffff'}
               />
             </View>
           ),

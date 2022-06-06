@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
-    height: 60,
     padding: 10,
     borderColor: 'black',
     borderRadius: 10,
@@ -209,6 +208,34 @@ const styles = StyleSheet.create({
   },
   scrollcontainer: {
     backgroundColor: '#C5D8A4',
+  },
+  containerEdit: {
+    backgroundColor: '#77A579',
+    padding: 10,
+    marginBottom: 100,
+    borderRadius: 10,
+  },
+  buttonChange: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#4B6991',
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  textDetail: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  description: {
+    flexDirection: 'row',
+    width: '55%',
+  },
+  textDescription: {
+    paddingTop: 3,
+    fontSize: 15,
   },
 });
 

@@ -19,7 +19,7 @@ const EditModal = props => {
         [campo]: nuevoValor,
       })
       .then(() => {
-        console.log('User updated!');
+        alert('¡El producto ha sido actualizado!');
       });
   };
   if (campo === 'cantidad') {
