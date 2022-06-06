@@ -51,8 +51,8 @@ const authUser = (email, password, navigation) => {
 };
 
 export const Login = ({navigation}) => {
-  const [email, setEmail] = useState('ldeniz1@ucol.mx');
-  const [pass, setPass] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Guardaditos TR</Text>

@@ -58,7 +58,10 @@ export const RoomDetails = ({route, navigation}) => {
   }, [isFocused, roomCode]);
   //hola
   const getProducts = async () => {
-    const data = await firestore().collection('Elementos').get();
+    const data = await firestore()
+      .collection('Elementos')
+      .where('roomCode', '==', roomCode)
+      .get();
     const aulasAux = [];
     data.forEach(documentSnapshot => {
       aulasAux.push(documentSnapshot.data());
