@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 5,
   },
   //login styles
   forgot: {
@@ -153,10 +153,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   footer: {
-    paddingBottom: 10,
+    padding: 10,
     alignSelf: 'center',
     position: 'absolute',
+    marginBottom: 10,
     bottom: 0,
+    width: 60,
+    height: 60,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   itemSala: {
     flexDirection: 'row',
@@ -168,6 +173,19 @@ const styles = StyleSheet.create({
     borderStyle: 'dotted',
     borderWidth: 2,
     borderRadius: 1,
+  },
+  containerInfo: {
+    backgroundColor: '#77A579',
+    color: '#000',
+    marginTop: 40,
+    marginBottom: 20,
+    height: 170,
+    width: 325,
+    paddingVertical: 10,
+    alignSelf: 'center',
+    borderRadius: 10,
+    padding: 20,
+    flexGrow: 0,
   },
 });
 

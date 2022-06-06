@@ -7,8 +7,6 @@ const ItemStyles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 8,
     marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
     flexDirection: 'row',
     padding: 5,
   },

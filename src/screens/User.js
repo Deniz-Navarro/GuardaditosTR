@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import CustomButtom from '../components/atoms/CustomButtom';
@@ -58,12 +58,12 @@ export const User = ({navigation}) => {
       <View>
         <Text style={styles.title}>Información de usuario</Text>
         <Upload id={current.uid} carpeta="users/" />
-        <ScrollView style={styles.userInfoContainer}>
-          <UserInfo text="Correo: " info={userInfo.correo} />
-          <UserInfo text="Username: " info={userInfo.nick} />
-          <UserInfo text="Numero de cuenta: " info={userInfo.numeroCuenta} />
+        <View style={styles.containerInfo}>
           <UserInfo text="Nombre: " info={userInfo.nombre} />
-        </ScrollView>
+          <UserInfo text="Username: " info={userInfo.nick} />
+          <UserInfo text="Correo: " info={userInfo.correo} />
+          <UserInfo text="Numero de cuenta: " info={userInfo.numeroCuenta} />
+        </View>
       </View>
       <View>
         <Text style={styles.title}>Materiales solicitados</Text>

@@ -4,10 +4,9 @@ const ProductStyles = StyleSheet.create({
   container: {
     backgroundColor: '#6B9C54',
     width: '95%',
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    marginHorizontal: 10,
     flexDirection: 'row',
     padding: 5,
   },
@@ -16,7 +15,7 @@ const ProductStyles = StyleSheet.create({
     height: 60,
     marginBottom: 20,
     borderRadius: 180,
-    marginLeft: 10,
+    marginHorizontal: 7,
     marginTop: 5,
   },
   view: {

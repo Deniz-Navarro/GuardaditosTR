@@ -1,11 +1,18 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {SafeAreaView, View, Text, ActivityIndicator} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import styles from './styles';
 import firestore from '@react-native-firebase/firestore';
 import CustomModal from '../components/atoms/CustomModal';
 import {useIsFocused} from '@react-navigation/native';
 import HorizontalList from '../components/molecules/HorizontalList';
+import IconPlus from 'react-native-vector-icons/Ionicons';
 
 export const RoomDetails = ({route, navigation}) => {
   const {roomCode} = route.params;
@@ -44,6 +51,7 @@ export const RoomDetails = ({route, navigation}) => {
         isFocused && setProducts(aulasAux);
       });
   }, [isFocused, roomCode]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header2}>
@@ -78,12 +86,9 @@ export const RoomDetails = ({route, navigation}) => {
         isEmpty={isEmpty.current}
       />
       <View style={styles.footer}>
-        <CustomButtom
-          name="plus"
-          color="orange"
-          size={80}
-          onPress={toggleModal}
-        />
+        <TouchableOpacity color="black" onPress={toggleModal}>
+          <IconPlus name="add" size={41} />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
