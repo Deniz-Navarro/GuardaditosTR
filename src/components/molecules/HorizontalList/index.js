@@ -26,6 +26,7 @@ const HorizontalList = props => {
   );
   const renderItem2 = ({item, index}) => (
     <ItemProduct
+      clave1={item.clave}
       title={item.nombre}
       cantidad={item.cantidad}
       text={item.detalle}
