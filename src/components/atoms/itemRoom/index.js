@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import LogoImg from '../../../assets/images/LogoUDC2.png';
 import ItemStyles from './ItemStyles';
 
 const ItemRoom = props => {
-  const {title, codigo, img, text, navigation} = props;
+  const {title, codigo, img, text, navigation, index} = props;
+  const [par, setPar] = useState(true);
+  useEffect(() => {
+    if (index % 2 == 0) setPar(true);
+    else setPar(false);
+  }, [index]);
   return (
     <TouchableOpacity
-      style={ItemStyles.container}
+      style={par ? ItemStyles.container : ItemStyles.container2}
       onPress={() =>
         navigation.navigate('RoomDetails', {
           roomCode: codigo,

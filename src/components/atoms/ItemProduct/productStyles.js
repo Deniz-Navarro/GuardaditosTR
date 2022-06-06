@@ -2,7 +2,16 @@ import {StyleSheet} from 'react-native';
 
 const ProductStyles = StyleSheet.create({
   container: {
-    backgroundColor: '#6B9C54',
+    backgroundColor: '#8CB0A4',
+    width: '95%',
+    borderRadius: 10,
+    marginBottom: 20,
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    padding: 5,
+  },
+  container2: {
+    backgroundColor: '#638396',
     width: '95%',
     borderRadius: 10,
     marginBottom: 20,

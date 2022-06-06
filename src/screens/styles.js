@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   logout: {
     flexDirection: 'column',
     alignItems: 'center',
-    bottom: 0,
+    marginBottom: 70,
   },
   textlogout: {
     color: '#B80B0B',
@@ -169,9 +169,8 @@ const styles = StyleSheet.create({
     height: 60,
     padding: 10,
     borderColor: 'black',
-    borderStyle: 'dotted',
-    borderWidth: 2,
-    borderRadius: 1,
+    borderRadius: 10,
+    backgroundColor: '#D4FFC2',
   },
   containerInfo: {
     backgroundColor: '#77A579',
@@ -190,6 +189,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+  },
+  containerInfo2: {
+    backgroundColor: '#77A579',
+    color: '#000',
+    marginVertical: 20,
+    width: 325,
+    paddingVertical: 10,
+    alignSelf: 'center',
+    borderRadius: 10,
+    padding: 20,
+  },
+  containerButton: {
+    bottom: 0,
+  },
+  adaptScroll: {
+    flexGrow: 0,
+    height: 400,
+  },
+  scrollcontainer: {
+    backgroundColor: '#C5D8A4',
   },
 });
 

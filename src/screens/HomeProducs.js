@@ -1,10 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {View, Text, Modal} from 'react-native';
+import {View, Text, Modal, ScrollView} from 'react-native';
 import styles from './styles';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import Button from '../components/atoms/Button';
 import {solicitarProducto, devolverProducto} from './ProductDetails';
+import CustomButtom from '../components/atoms/CustomButtom';
 
 export const HomeProducts = ({route, navigation}) => {
   const {clave} = route.params;
@@ -51,36 +52,59 @@ export const HomeProducts = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text>
-        Clave del producto:
-        {products ? <Text> {products.clave}</Text> : null}
-      </Text>
-      <Text>
-        Cantidad:
-        {products ? <Text> {products.cantidad}</Text> : null}
-      </Text>
-      <Text>
-        Persona responsable:
-        {products ? <Text> {products.correo}</Text> : null}
-      </Text>
-      <Text>
-        Estado:
-        {products ? (
-          <Text> {products.estado ? 'Disponible' : 'No Disponible'}</Text>
-        ) : null}
-      </Text>
-      <Text>
-        Este producto pertenece a:
-        {aula ? <Text> {aula.nombre}</Text> : null}
-      </Text>
-      <Button
-        text={solicitado === currentUser.uid ? 'Devolver' : 'Solicitar'}
-        onPress={() => {
-          solicitado === currentUser.uid
-            ? devolverProducto(documentId, products.cantidad, setSolicitado)
-            : solicitarProducto(documentId, products.cantidad, setSolicitado);
-        }}
-      />
+      <View style={styles.header2}>
+        <CustomButtom
+          name="chevron-left"
+          size={50}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={styles.title2}>
+          Producto:
+          {products ? <Text> {products.nombre}</Text> : null}
+        </Text>
+      </View>
+      <View style={styles.containerInfo2}>
+        <ScrollView style={styles.adaptScroll}>
+          <Text style={styles.containText}>
+            Clave del producto:
+            {products ? <Text> {products.clave}</Text> : null}
+          </Text>
+          <Text style={styles.containText}>
+            Cantidad:
+            {products ? <Text> {products.cantidad}</Text> : null}
+          </Text>
+          <Text style={styles.containText}>
+            Persona responsable:
+            {products ? <Text> {products.correo}</Text> : null}
+          </Text>
+          <Text style={styles.containText}>
+            Estado:
+            {products ? (
+              <Text> {products.estado ? 'Disponible' : 'No Disponible'}</Text>
+            ) : null}
+          </Text>
+          <Text style={styles.containText}>
+            Este producto pertenece a:
+            {aula ? <Text> {aula.nombre}</Text> : null}
+          </Text>
+        </ScrollView>
+        <View style={styles.containerButton}>
+          <Button
+            text={solicitado === currentUser.uid ? 'Devolver' : 'Solicitar'}
+            onPress={() => {
+              solicitado === currentUser.uid
+                ? devolverProducto(documentId, products.cantidad, setSolicitado)
+                : solicitarProducto(
+                    documentId,
+                    products.cantidad,
+                    setSolicitado,
+                  );
+            }}
+          />
+        </View>
+      </View>
     </View>
   );
 };

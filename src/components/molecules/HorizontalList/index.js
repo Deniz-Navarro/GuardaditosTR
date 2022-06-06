@@ -15,20 +15,22 @@ const HorizontalList = props => {
     User,
   } = props;
   var text = '';
-  const renderItem = ({item}) => (
+  const renderItem = ({item, index}) => (
     <ItemRoom
       title={item.nombre}
       codigo={item.codigo}
       text={item.detalle}
       navigation={navigation}
+      index={index}
     />
   );
-  const renderItem2 = ({item}) => (
+  const renderItem2 = ({item, index}) => (
     <ItemProduct
       title={item.nombre}
       cantidad={item.cantidad}
       text={item.detalle}
       Home={Home}
+      index={index}
       onPress={
         Home
           ? () =>
