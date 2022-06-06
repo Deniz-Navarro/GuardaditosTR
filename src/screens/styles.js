@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderBottomColor: 'black',
     paddingBottom: 5,
-    borderBottomWidth: 1,
   },
   inputCodigo: {
     width: 200,
@@ -186,6 +185,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     flexGrow: 0,
+  },
+  containText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
 });
 
