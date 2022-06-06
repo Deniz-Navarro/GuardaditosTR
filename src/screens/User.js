@@ -1,13 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {Text, View, FlatList, ScrollView} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import CustomButtom from '../components/atoms/CustomButtom';
 import Upload from '../components/atoms/Upload';
 import styles from './styles';
 import UserInfo from '../components/atoms/UserInfo';
-import HorizontalList from '../components/molecules/HorizontalList';
 import {useIsFocused} from '@react-navigation/native';
+import ItemProduct from '../components/atoms/ItemProduct';
 
 export const User = ({navigation}) => {
   const [userInfo, setUserInfo] = useState('');
@@ -54,27 +54,36 @@ export const User = ({navigation}) => {
   }, [current, isFocused]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.scrollcontainer}>
       <View>
         <Text style={styles.title}>Información de usuario</Text>
         <Upload id={current.uid} carpeta="users/" />
-        <ScrollView style={styles.userInfoContainer}>
-          <UserInfo text="Correo: " info={userInfo.correo} />
-          <UserInfo text="Username: " info={userInfo.nick} />
-          <UserInfo text="Numero de cuenta: " info={userInfo.numeroCuenta} />
+        <View style={styles.containerInfo}>
           <UserInfo text="Nombre: " info={userInfo.nombre} />
-        </ScrollView>
+          <UserInfo text="Username: " info={userInfo.nick} />
+          <UserInfo text="Correo: " info={userInfo.correo} />
+          <UserInfo text="Numero de cuenta: " info={userInfo.numeroCuenta} />
+        </View>
       </View>
       <View>
         <Text style={styles.title}>Materiales solicitados</Text>
-        <HorizontalList
-          data={elementos}
-          navigation={navigation}
-          isProduct
-          isEmpty={isEmpty.current}
-          Home
-          User
-        />
+        {elementos ? (
+          <ScrollView horizontal={true} style={{flexGrow: 0, height: 100}}>
+            {elementos.map((item, key, index) => (
+              <ItemProduct
+                key={item.clave}
+                title={item.nombre}
+                cantidad={item.cantidad}
+                text={item.detalle}
+                onPress={() =>
+                  navigation.navigate('HomeProducts', {
+                    clave: item.clave,
+                  })
+                }
+              />
+            ))}
+          </ScrollView>
+        ) : null}
       </View>
       <View style={styles.logout}>
         <CustomButtom
@@ -85,6 +94,6 @@ export const User = ({navigation}) => {
         />
         <Text style={styles.textlogout}>Cerrar sesion</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };

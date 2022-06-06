@@ -1,16 +1,28 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {SafeAreaView, View, Text, ActivityIndicator} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import styles from './styles';
 import firestore from '@react-native-firebase/firestore';
 import CustomModal from '../components/atoms/CustomModal';
 import {useIsFocused} from '@react-navigation/native';
 import HorizontalList from '../components/molecules/HorizontalList';
+import IconPlus from 'react-native-vector-icons/Ionicons';
+
+//hola
+import SearchBar from '../components/atoms/SearchBar';
 
 export const RoomDetails = ({route, navigation}) => {
   const {roomCode} = route.params;
   const [isModalVisible, setModalVisible] = useState(false);
   const [products, setProducts] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [isLoading, setLoading] = useState(true);
   const isEmpty = useRef(true);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -44,6 +56,36 @@ export const RoomDetails = ({route, navigation}) => {
         isFocused && setProducts(aulasAux);
       });
   }, [isFocused, roomCode]);
+  //hola
+  const getProducts = async () => {
+    const data = await firestore().collection('Elementos').get();
+    const aulasAux = [];
+    data.forEach(documentSnapshot => {
+      aulasAux.push(documentSnapshot.data());
+      isEmpty.current = false;
+    });
+    setLoading(false);
+    return aulasAux;
+  };
+
+  const setAulasFiltered = async () => {
+    setLoading(true);
+    const aulasAux = await getProducts();
+    const aulasAuxFiltered = aulasAux.filter(aula => {
+      const nombreLowCase = aula.nombre.toLowerCase();
+      if (nombreLowCase.includes(searchValue.toLowerCase())) {
+        return aula;
+      }
+    });
+    isFocused && setProducts(searchValue === '' ? aulasAux : aulasAuxFiltered);
+  };
+
+  useEffect(() => {
+    setAulasFiltered();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue, isFocused, navigation]);
+
+  //hola2
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header2}>
@@ -68,22 +110,21 @@ export const RoomDetails = ({route, navigation}) => {
           });
         }}
       />
+      <SearchBar value={searchValue} setValue={setSearchValue} />
       <Text style={styles.subtitle}>
         Codigo de invitacion: {roomInfo.codigo}
       </Text>
       <HorizontalList
         data={products}
         navigation={navigation}
+        isLoading={isLoading}
         isProduct
         isEmpty={isEmpty.current}
       />
       <View style={styles.footer}>
-        <CustomButtom
-          name="plus"
-          color="orange"
-          size={80}
-          onPress={toggleModal}
-        />
+        <TouchableOpacity color="black" onPress={toggleModal}>
+          <IconPlus name="add" size={41} />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

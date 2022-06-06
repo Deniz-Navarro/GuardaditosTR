@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {ScrollView, View, Text} from 'react-native';
 import CustomButtom from '../components/atoms/CustomButtom';
 import styles from './styles';
 import firestore from '@react-native-firebase/firestore';
@@ -15,7 +15,7 @@ const deleteProduct = id => {
     .doc(id)
     .delete()
     .then(() => {
-      console.log('Producto eliminado!');
+      alert('Producto eliminado!');
     });
 };
 
@@ -29,12 +29,17 @@ export const devolverProducto = (id, cantidad, setSolicitado) => {
       solicitado: '',
     })
     .then(() => {
-      console.log('User updated!');
+      alert('El producto ha sido devuelto, ¡Muchas gracias!');
     });
   setSolicitado('');
 };
 
-export const solicitarProducto = (id, cantidad, setSolicitado) => {
+export const solicitarProducto = (
+  id,
+  cantidad,
+  setSolicitado,
+  setModalVisible,
+) => {
   const currentUser = auth().currentUser;
   if (cantidad > 0) {
     firestore()
@@ -46,7 +51,9 @@ export const solicitarProducto = (id, cantidad, setSolicitado) => {
         solicitado: currentUser.uid,
       })
       .then(() => {
-        console.log('User updated!');
+        alert(
+          'El producto ha sido solicitado, ¡Por favor devuelvelo pronto! n.n ',
+        );
       });
     setSolicitado(currentUser.uid);
   } else {
@@ -86,7 +93,7 @@ export const ProductDetails = ({route, navigation}) => {
     return () => controlador.abort();
   }, [clave, isFocused, isModalVisible, solicitado]);
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header2}>
         <CustomButtom
           name="chevron-left"
@@ -97,64 +104,97 @@ export const ProductDetails = ({route, navigation}) => {
         />
         <Text style={styles.title2}>{product ? product.nombre : null}</Text>
       </View>
-      <View style={styles.itemSala}>
-        <Text>Clave del producto: {product ? product.clave : null}</Text>
-      </View>
-      <View style={styles.itemSala}>
-        <Text>Cantidad: {product ? product.cantidad : null}</Text>
-        <CustomButtom
-          name="pencil"
-          size={30}
-          color="green"
-          onPress={() => toggleModal('cantidad', product.cantidad)}
+      <View style={styles.containerEdit}>
+        <View style={styles.itemSala}>
+          <View style={styles.description}>
+            <Text style={styles.textDetail}> Clave del producto: </Text>
+            <Text style={styles.textDescription}>
+              {product ? product.clave : null}{' '}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.itemSala}>
+          <View style={styles.description}>
+            <Text style={styles.textDetail}>Cantidad: </Text>
+            <Text style={styles.textDescription}>
+              {' '}
+              {product ? product.cantidad : null}{' '}
+            </Text>
+          </View>
+          <CustomButtom
+            name="pencil"
+            size={30}
+            color="green"
+            onPress={() => toggleModal('cantidad', product.cantidad)}
+          />
+        </View>
+        <View style={styles.itemSala}>
+          <View styles={styles.description}>
+            <Text style={styles.textDetail}>Responsable:</Text>
+            <Text style={styles.textDescription}>
+              {' '}
+              {product ? product.correo : null}{' '}
+            </Text>
+          </View>
+          <CustomButtom
+            name="pencil"
+            size={30}
+            color="green"
+            onPress={() => toggleModal('correo', product.correo)}
+          />
+        </View>
+        <View style={styles.itemSala}>
+          <View style={styles.description}>
+            <Text style={styles.textDetail}>Descripción:</Text>
+            <Text style={styles.textDescription}>
+              {' '}
+              {product ? product.detalle : null}{' '}
+            </Text>
+          </View>
+          <CustomButtom
+            name="pencil"
+            size={30}
+            color="green"
+            onPress={() => toggleModal('detalle', product.detalle)}
+          />
+        </View>
+        <View style={styles.itemSala}>
+          <View style={styles.description}>
+            <Text style={styles.textDetail}>Estado: </Text>
+            <Text style={styles.textDescription}>
+              {product
+                ? product.estado
+                  ? 'Disponible'
+                  : 'No disponible'
+                : null}
+            </Text>
+          </View>
+        </View>
+        <EditModal
+          isModalVisible={isModalVisible}
+          onPress={toggleModal}
+          campo={campo}
+          anterior={anterior}
+          id={documentId}
+        />
+        <Button
+          text={solicitado === currentUser.uid ? 'Devolver' : 'Solicitar'}
+          styles={styles.buttonChange}
+          onPress={() => {
+            solicitado === currentUser.uid
+              ? devolverProducto(documentId, product.cantidad, setSolicitado)
+              : solicitarProducto(documentId, product.cantidad, setSolicitado);
+          }}
+        />
+        <Button
+          text="Eliminar"
+          styles={styles.buttonChange}
+          onPress={() => {
+            deleteProduct(documentId);
+            navigation.goBack();
+          }}
         />
       </View>
-      <View style={styles.itemSala}>
-        <Text>Responsable: {product ? product.correo : null}</Text>
-        <CustomButtom
-          name="pencil"
-          size={30}
-          color="green"
-          onPress={() => toggleModal('correo', product.correo)}
-        />
-      </View>
-      <View style={styles.itemSala}>
-        <Text>Descripción: {product ? product.detalle : null}</Text>
-        <CustomButtom
-          name="pencil"
-          size={30}
-          color="green"
-          onPress={() => toggleModal('detalle', product.detalle)}
-        />
-      </View>
-      <View style={styles.itemSala}>
-        <Text>
-          Estado:{' '}
-          {product ? (product.estado ? 'Disponible' : 'No disponible') : null}
-        </Text>
-      </View>
-      <EditModal
-        isModalVisible={isModalVisible}
-        onPress={toggleModal}
-        campo={campo}
-        anterior={anterior}
-        id={documentId}
-      />
-      <Button
-        text={solicitado === currentUser.uid ? 'Devolver' : 'Solicitar'}
-        onPress={() => {
-          solicitado === currentUser.uid
-            ? devolverProducto(documentId, product.cantidad, setSolicitado)
-            : solicitarProducto(documentId, product.cantidad, setSolicitado);
-        }}
-      />
-      <Button
-        text="Eliminar"
-        onPress={() => {
-          deleteProduct(documentId);
-          navigation.goBack();
-        }}
-      />
-    </SafeAreaView>
+    </ScrollView>
   );
 };

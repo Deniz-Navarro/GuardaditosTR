@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 5,
   },
   //login styles
   forgot: {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   logout: {
     flexDirection: 'column',
     alignItems: 'center',
-    bottom: 0,
+    marginBottom: 70,
   },
   textlogout: {
     color: '#B80B0B',
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderBottomColor: 'black',
     paddingBottom: 5,
-    borderBottomWidth: 1,
   },
   inputCodigo: {
     width: 200,
@@ -153,21 +152,90 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   footer: {
-    paddingBottom: 10,
+    padding: 10,
     alignSelf: 'center',
     position: 'absolute',
+    marginBottom: 10,
     bottom: 0,
+    width: 60,
+    height: 60,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   itemSala: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
-    height: 60,
     padding: 10,
     borderColor: 'black',
-    borderStyle: 'dotted',
-    borderWidth: 2,
-    borderRadius: 1,
+    borderRadius: 10,
+    backgroundColor: '#D4FFC2',
+  },
+  containerInfo: {
+    backgroundColor: '#77A579',
+    color: '#000',
+    marginTop: 40,
+    marginBottom: 20,
+    height: 170,
+    width: 325,
+    paddingVertical: 10,
+    alignSelf: 'center',
+    borderRadius: 10,
+    padding: 20,
+    flexGrow: 0,
+  },
+  containText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  containerInfo2: {
+    backgroundColor: '#77A579',
+    color: '#000',
+    marginVertical: 20,
+    width: 325,
+    paddingVertical: 10,
+    alignSelf: 'center',
+    borderRadius: 10,
+    padding: 20,
+  },
+  containerButton: {
+    bottom: 0,
+  },
+  adaptScroll: {
+    flexGrow: 0,
+    height: 400,
+  },
+  scrollcontainer: {
+    backgroundColor: '#C5D8A4',
+  },
+  containerEdit: {
+    backgroundColor: '#77A579',
+    padding: 10,
+    marginBottom: 100,
+    borderRadius: 10,
+  },
+  buttonChange: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#4B6991',
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 10,
+  },
+  textDetail: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  description: {
+    flexDirection: 'row',
+    width: '55%',
+  },
+  textDescription: {
+    paddingTop: 3,
+    fontSize: 15,
   },
 });
 
